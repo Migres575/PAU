@@ -8,7 +8,7 @@ export default function HistoricalImageCard({ image }: Props) {
   return (
     <article className="card overflow-hidden h-full flex flex-col">
       <div className="relative w-full h-48 md:h-52 rounded-lg overflow-hidden bg-slate-100">
-        <SafeImage src={image.imageUrl} alt={image.altText} className="w-full h-full object-cover" />
+        <SafeImage src={image.imageUrl} alt={image.altText} className={`w-full h-full ${image.type === 'mapa' || image.type === 'document jurídic' ? 'object-contain bg-slate-50 p-2' : 'object-cover'}`} />
       </div>
 
       <h4 className="font-semibold mt-3 text-lg leading-tight">{image.title}</h4>
