@@ -7,7 +7,7 @@ export const visualActivities: VisualActivity[] = Array.from({ length: 20 }, (_,
   id: `va${i + 1}`,
   title: `Activitat visual ${i + 1}`,
   period: ['Guerra del Francés','Estat liberal','Sexenni','Restauració','Segona República','Guerra Civil','Franquisme','Transició'][i % 8],
-  imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4f/El_Tres_de_Mayo%2C_by_Francisco_de_Goya%2C_from_Prado_in_Google_Earth.jpg',
+  imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4f/The_Third_of_May_1808.jpg',
   sourceName: 'Wikimedia Commons',
   sourceUrl: 'https://commons.wikimedia.org/wiki/Main_Page',
   questions: [
