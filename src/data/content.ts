@@ -126,6 +126,37 @@ La Pragmàtica Sanció (1830) permeté heretar a Isabel, filla de Ferran VII, en
     pauQuestions: ['Perioditza i explica el regnat de Ferran VII.', 'Analitza causes i conseqüències del Trienni Liberal.', 'Relaciona qüestió successòria i origen del carlisme.'],
     commonMistakes: ['Mesclar Trienni Liberal amb el Sexenni Democràtic.', 'No citar la intervenció francesa de 1823.', 'Ignorar la relació entre successió i guerra carlina.'],
     answerOutline: ['Restauració de 1814', 'Crisi de l’absolutisme', 'Trienni Liberal i reformes', 'Reacció absolutista de 1823', 'Dècada Ominosa i balanç final']
+  },
+  {
+    id: 4,
+    title: 'Regències i inici de l’Estat liberal',
+    period: '1833-1843',
+    summary: `La mort de Ferran VII en 1833 obrí una etapa de transició decisiva cap a l’Estat liberal a Espanya.
+La minoria d’edat d’Isabel II obligà a governar mitjançant regències, primer amb Maria Cristina i després amb Espartero.
+Al mateix temps esclatà la Primera Guerra Carlina, que combinava conflicte dinàstic i enfrontament ideològic.
+Els governs liberals impulsaren reformes per desmuntar l’Antic Règim i centralitzar l’Estat.
+Entre estes mesures destaquen l’Estatut Reial de 1834, la desamortització de Mendizábal i la Constitució de 1837.
+El procés estigué marcat per inestabilitat política, pronunciaments militars i tensions socials.
+Moderats i progressistes discrepaven sobre sobirania, sufragi i grau de reforma.
+Malgrat les dificultats, en esta dècada es consolidaren bases institucionals del liberalisme espanyol.
+Per a PAU és clau relacionar guerra carlina, reformes i construcció de l’Estat contemporani.`,
+    explanation: `La regència de Maria Cristina (1833-1840) començà en plena guerra carlina. Els carlins defensaven els drets successoris de Carles Maria Isidre i un model tradicionalista (monarquia absoluta, foralisme i pes social de l’Església), mentre que l’isabelisme s’identificà progressivament amb el liberalisme.
+
+En un primer moment, el govern optà per reformes limitades amb l’Estatut Reial de 1834, una carta atorgada que no reconeixia plenament la sobirania nacional. La pressió de la guerra, de les juntes i de la mobilització urbana afavorí un gir progressista entre 1835 i 1837.
+
+Mendizábal impulsà la desamortització eclesiàstica per obtindre recursos fiscals, reduir el poder econòmic de l’Església i crear una base social liberal propietària. Encara que incrementà ingressos i transformà la propietat, també generà conflictes socials i no resolgué la pobresa camperola.
+
+La Constitució de 1837 representà un compromís entre moderats i progressistes: sobirania nacional, Corts bicamerals, declaració de drets i paper rellevant de la Corona. Això mostrava que el liberalisme espanyol avançava, però amb pactes i límits.
+
+La guerra carlina finalitzà principalment amb el Conveni de Bergara (1839), que facilità la integració d’una part de l’exèrcit carlí i consolidà la victòria isabelina. Després, la regència d’Espartero (1840-1843) intentà aprofundir reformes, però el seu autoritarisme i els conflictes amb el proteccionisme industrial català debilitarem el règim.
+
+En 1843, la caiguda d’Espartero i la declaració de majoria d’edat d’Isabel II tancaren la fase regencial. El balanç és clar: entre 1833 i 1843 es posaren els fonaments polítics i jurídics del nou Estat liberal espanyol.`,
+    chronology: ['1833: mort de Ferran VII i inici de la regència de Maria Cristina.', '1833-1840: Primera Guerra Carlina.', '1834: Estatut Reial.', '1836-1837: reformes progressistes i desamortització de Mendizábal.', '1837: aprovació de la Constitució de 1837.', '1839: Conveni de Bergara.', '1840-1843: regència d’Espartero.', '1843: majoria d’edat d’Isabel II.'],
+    keyConcepts: ['regència', 'carlisme', 'Estatut Reial', 'desamortització', 'Constitució de 1837', 'sobirania nacional'],
+    people: ['Maria Cristina de Borbó', 'Baldomero Espartero', 'Juan Álvarez Mendizábal', 'Carles Maria Isidre', 'Isabel II'],
+    pauQuestions: ['Explica la relació entre Primera Guerra Carlina i construcció de l’Estat liberal.', 'Analitza l’abast de la desamortització de Mendizábal.', 'Compara Estatut Reial (1834) i Constitució de 1837.'],
+    commonMistakes: ['Presentar la guerra carlina com un conflicte només dinàstic.', 'Confondre l’Estatut Reial amb una constitució liberal plena.', 'Oblidar la importància del Conveni de Bergara.'],
+    answerOutline: ['Context successori i esclat carlí', 'Regència de Maria Cristina i gir liberal', 'Reformes clau: desamortització i Constitució de 1837', 'Regència d’Espartero', 'Balanç del període 1833-1843']
   }
 ];
 
@@ -179,7 +210,7 @@ export const glossary: GlossaryItem[] = [
 ];
 
 const baseTopic = topics.map(t => t.title);
-export const testQuestions: TestQuestion[] = Array.from({ length: 15 }, (_, i) => ({ question: `Qüestió PAU ${i + 1}: identifica l’opció correcta sobre ${baseTopic[i % 3]}.`, options: ['Relaciona bé cronologia, actors i conseqüències', 'No hi hagué conflicte polític', 'El procés fou lineal i sense resistències', 'No tingué impacte institucional'], correctAnswer: 0, explanation: 'La resposta correcta integra causes, evolució i conseqüències reals del procés històric.', topic: baseTopic[i % 3], difficulty: i % 3 === 0 ? 'baixa' : i % 3 === 1 ? 'mitjana' : 'alta' }));
+export const testQuestions: TestQuestion[] = Array.from({ length: 15 }, (_, i) => ({ question: `Qüestió PAU ${i + 1}: identifica l’opció correcta sobre ${baseTopic[i % baseTopic.length]}.`, options: ['Relaciona bé cronologia, actors i conseqüències', 'No hi hagué conflicte polític', 'El procés fou lineal i sense resistències', 'No tingué impacte institucional'], correctAnswer: 0, explanation: 'La resposta correcta integra causes, evolució i conseqüències reals del procés històric.', topic: baseTopic[i % baseTopic.length], difficulty: i % 3 === 0 ? 'baixa' : i % 3 === 1 ? 'mitjana' : 'alta' }));
 
 export const essayQuestions: EssayQuestion[] = topics.map((t) => ({ question: `Desenvolupa el tema: ${t.title}.`, topic: t.title, outline: t.answerOutline, keyConcepts: t.keyConcepts, modelAnswer: t.explanation, commonMistakes: t.commonMistakes }));
 export const timelineActivities: TimelineActivity[] = topics.flatMap((t) => t.chronology.map((c) => ({ date: c.split(':')[0], title: t.title, description: c, period: t.period, category: 'política', relatedTopic: t.title, pauImportance: 'Data clau per ordenar una resposta de desenvolupament a PAU.' })));
