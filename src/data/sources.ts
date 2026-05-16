@@ -10,7 +10,9 @@ En segon lloc, la contextualització ha de ser precisa i cronològica. Situa el 
 
 En tercer lloc, desenvolupa les idees clau del fragment. Has de diferenciar entre principis doctrinals (sobirania, drets, religió, ordre social), mecanismes institucionals (Corts, Corona, Govern, sufragi, administració) i efectes pràctics (repressió, reforma, ampliació de drets o limitacions). És recomanable comentar termes significatius del text i mostrar com connecten amb el programa polític del període. Açò et permet passar de la descripció a l’anàlisi, que és el que penalitza o premia la PAU.
 
-Finalment, valora abast i límits. Pregunta’t si la norma o el manifest es va aplicar de manera efectiva, quines resistències va trobar i quines conseqüències tingué a curt i llarg termini. Tanca amb una síntesi argumentada: este document és útil perquè explica el model d’Estat del moment i permet comparar continuïtats i ruptures amb altres etapes. Si acabes amb una comparació breu amb un altre text del temari, el comentari guanya qualitat, coherència i profunditat.`;
+Finalment, valora abast i límits. Pregunta’t si la norma o el manifest es va aplicar de manera efectiva, quines resistències va trobar i quines conseqüències tingué a curt i llarg termini. Tanca amb una síntesi argumentada: este document és útil perquè explica el model d’Estat del moment i permet comparar continuïtats i ruptures amb altres etapes. Si acabes amb una comparació breu amb un altre text del temari, el comentari guanya qualitat, coherència i profunditat.
+
+Per ampliar el nivell d’anàlisi, afegix dos eixos finals: primer, la dimensió social (qui guanya i qui perd amb el text: oligarquies, classes populars, exèrcit, Església, dones, món rural o urbà); segon, la dimensió territorial (com afecta la relació centre-perifèria, municipis, províncies i colònies). Estos eixos et permeten passar d’un comentari descriptiu a un comentari interpretatiu, que és el nivell alt que sol valorar la PAU.`;
 
 const build = (id:string,title:string,date:string,period:string,author:string,sourceUrl:string,relatedImageUrl:string,excerpt:string,relatedTopics:string[],difficulty:'baixa'|'mitjana'|'alta'): HistoricalSource => ({
   id,title,date,period,author,sourceUrl,relatedImageUrl,excerpt: `${excerpt}\n\nAquest fragment, llegit en conjunt amb la resta del document, mostra com el llenguatge polític del moment definia qui tenia la legitimitat, quins límits tenia el poder i quina idea de ciutadania es volia imposar. També evidencia tensions entre principis teòrics i aplicació pràctica.`,fullReference:title,type:'text',nature:'font primària',
@@ -23,7 +25,9 @@ Des d’una perspectiva de llarga durada, esta font permet entendre com evolucio
     'Relaciona institucions i ideologia amb objectius d’estabilització.',
     'Té efectes sobre drets, representació i organització de l’Estat.',
     'Permet comparar continuïtats i ruptures amb altres textos del temari.',
-    'Ajuda a entendre la relació entre conflicte social i transformació institucional.'
+    'Ajuda a entendre la relació entre conflicte social i transformació institucional.',
+    'Permet valorar actors beneficiats i perjudicats en cada conjuntura.',
+    'Obri una lectura territorial sobre centralització i diversitat política.'
   ],
   commentaryQuestions:[
     'Classifica la font per tipus, naturalesa i autoria.',
@@ -32,7 +36,9 @@ Des d’una perspectiva de llarga durada, esta font permet entendre com evolucio
     'Quin impacte pràctic tingué en la vida política i social?',
     'Amb quins altres documents del temari el compararies i per què?',
     'Quins conceptes clau del text (sobirania, nació, drets, ordre) exigeixen definició?',
-    'Quines continuïtats i ruptures detectes respecte de l’etapa anterior?'
+    'Quines continuïtats i ruptures detectes respecte de l’etapa anterior?',
+    'Quins grups socials ixen reforçats i quins queden exclosos?',
+    'Hi ha una dimensió territorial o colonial rellevant en la font?'
   ],
   modelCommentary: longModel(title, period),
   pauUse:'Pot aparéixer com a comentari de text complet (classificació, contextualització, anàlisi d’idees, valoració crítica i conclusió), però també com a document comparatiu en una pregunta de desenvolupament. És especialment útil per entrenar la redacció d’introduccions i conclusions de qualitat en PAU, perquè obliga a connectar el text amb processos de llarga durada (construcció de l’Estat, conflictivitat social, ampliació o restricció de drets) i amb altres fonts del mateix bloc temàtic.',

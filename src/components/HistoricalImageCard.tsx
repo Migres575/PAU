@@ -15,7 +15,7 @@ export default function HistoricalImageCard({ image }: Props) {
       <p className="text-xs text-slate-600 mt-1">{image.date} · {image.period}</p>
       <p className="text-sm mt-2 flex-1">{image.description}</p>
       <p className="text-xs text-slate-600 mt-3">Font: {image.sourceName}</p>
-      <a className="text-xs text-blue-700 hover:underline break-all" href={image.sourceUrl} target="_blank" rel="noreferrer">{image.sourceUrl}</a>
+      <a className="text-xs text-blue-700 hover:underline" href={image.sourceUrl} target="_blank" rel="noreferrer">Veure font original</a>
       <p className="text-xs text-slate-500 mt-1">Llicència: {image.license}</p>
     </article>
   );

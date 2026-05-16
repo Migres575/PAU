@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import SectionCard from './components/SectionCard';
-import { essayQuestions, glossary, mockExams, responseModels, rubrics, sources, testQuestions, timelineActivities, topics } from './data/content';
+import { essayQuestions, glossary, mockExams, responseModels, rubrics, testQuestions, timelineActivities, topics } from './data/content';
 import { mediaItems } from './data/media';
 import { historicalSources } from './data/sources';
 import { visualActivities } from './data/visualActivities';
@@ -12,7 +12,7 @@ const MENU: Menu[] = ['inici', 'temari', 'cronologia', 'fonts-imatges', 'simulac
 
 export default function App() {
   const [menu, setMenu] = useState<Menu>('inici');
-  const [done, setDone] = useState<number[]>(() => JSON.parse(localStorage.getItem('pau-progress') ?? '[]'));
+  const [done] = useState<number[]>(() => JSON.parse(localStorage.getItem('pau-progress') ?? '[]'));
   const [query, setQuery] = useState('');
   const [period, setPeriod] = useState('Tots');
   const progress = useMemo(() => Math.round((done.length / testQuestions.length) * 100), [done.length]);
@@ -20,6 +20,12 @@ export default function App() {
 
   const filteredSources = historicalSources.filter((s) => (period === 'Tots' || s.period === period) && `${s.title} ${s.historicalContext}`.toLowerCase().includes(query.toLowerCase()));
   const filteredMedia = mediaItems.filter((m) => (period === 'Tots' || m.period === period) && `${m.title} ${m.description}`.toLowerCase().includes(query.toLowerCase()));
+  const outlineStyles = [
+    { title: 'Esquema cronològic', className: 'list-decimal' },
+    { title: 'Esquema causal', className: 'list-disc' },
+    { title: 'Esquema comparatiu', className: 'list-[upper-roman]' },
+  ] as const;
+
   const quickLinks: Array<{ title: string; target: Menu }> = [
     { title: 'Temari', target: 'temari' },
     { title: 'Cronologia', target: 'cronologia' },
@@ -55,9 +61,9 @@ export default function App() {
       </>}
       {menu === 'temari' && topics.map((t) => {
         const imgs = mediaItems.filter((m) => m.period === t.title || m.relatedTopic.toLowerCase().includes(t.title.toLowerCase()) || t.title.toLowerCase().includes(m.relatedTopic.toLowerCase())).slice(0, 4);
-        return <SectionCard key={t.id} title={t.title}><PeriodBadge period={t.period} /><p className="mt-2 whitespace-pre-wrap">{t.summary}</p><div className="mt-4"><h4 className="font-semibold text-lg">Explicació desenvolupada</h4><p className="whitespace-pre-wrap mt-2">{t.explanation}</p></div><div className="mt-4"><h4 className="font-semibold text-lg">Esquema del tema</h4><ol className="list-decimal ml-6">{t.answerOutline.map((item, i) => <li key={i}>{item}</li>)}</ol></div><div className="mt-4"><h4 className="font-semibold text-lg">Cronologia</h4><ul className="list-disc ml-6">{t.chronology.map((c, i) => <li key={i}>{c}</li>)}</ul></div><div className="grid md:grid-cols-2 gap-3 mt-4"><div><h4 className="font-semibold text-lg">Conceptes clau</h4><ul className="list-disc ml-6">{t.keyConcepts.map((k, i) => <li key={i}>{k}</li>)}</ul></div><div><h4 className="font-semibold text-lg">Personatges</h4><ul className="list-disc ml-6">{t.people.map((p, i) => <li key={i}>{p}</li>)}</ul></div></div><div className="mt-4"><h4 className="font-semibold text-lg">Preguntes PAU</h4><ul className="list-disc ml-6">{t.pauQuestions.map((q, i) => <li key={i}>{q}</li>)}</ul></div><div className="mt-4"><h4 className="font-semibold text-lg">Model de resposta (aprox. 400 paraules)</h4><p className="whitespace-pre-wrap mt-2">{responseModels.find((r) => r.title === t.title)?.answer}</p></div>{imgs[0] && <SafeImage src={imgs[0].imageUrl} alt={imgs[0].altText} className="w-full max-h-[30rem] object-contain rounded-xl bg-stone-100 mt-4" />}<ImageGallery items={imgs} /></SectionCard>;
+        return <SectionCard key={t.id} title={t.title}><PeriodBadge period={t.period} /><p className="mt-2 whitespace-pre-wrap">{t.summary}</p><div className="mt-4"><h4 className="font-semibold text-lg">Explicació desenvolupada</h4><p className="whitespace-pre-wrap mt-2">{t.explanation}</p></div><div className="mt-4"><h4 className="font-semibold text-lg">{outlineStyles[(t.id - 1) % outlineStyles.length].title}</h4><ol className={`${outlineStyles[(t.id - 1) % outlineStyles.length].className} ml-6`}>{t.answerOutline.map((item, i) => <li key={i}>{item}</li>)}</ol></div><div className="mt-4"><h4 className="font-semibold text-lg">Cronologia</h4><ul className="list-disc ml-6">{t.chronology.map((c, i) => <li key={i}>{c}</li>)}</ul></div><div className="grid md:grid-cols-2 gap-3 mt-4"><div><h4 className="font-semibold text-lg">Conceptes clau</h4><ul className="list-disc ml-6">{t.keyConcepts.map((k, i) => <li key={i}>{k}</li>)}</ul></div><div><h4 className="font-semibold text-lg">Personatges</h4><ul className="list-disc ml-6">{t.people.map((p, i) => <li key={i}>{p}</li>)}</ul></div></div><div className="mt-4"><h4 className="font-semibold text-lg">Preguntes PAU</h4><ul className="list-disc ml-6">{t.pauQuestions.map((q, i) => <li key={i}>{q}</li>)}</ul></div><div className="mt-4"><h4 className="font-semibold text-lg">Model de resposta (aprox. 400 paraules)</h4><p className="whitespace-pre-wrap mt-2">{responseModels.find((r) => r.title === t.title)?.answer}</p></div>{imgs[0] && <SafeImage src={imgs[0].imageUrl} alt={imgs[0].altText} className="w-full max-h-[30rem] object-contain rounded-xl bg-stone-100 mt-4" />}<ImageGallery items={imgs} /></SectionCard>;
       })}
-      {menu === 'cronologia' && timelineActivities.slice(0, 20).map((a, i) => <TimelineEventCard key={i} date={a.date} title={a.title} description={a.description} imageUrl={mediaItems[i % mediaItems.length]?.imageUrl} />)}
+      {menu === 'cronologia' && timelineActivities.slice(0, 20).map((a, i) => <TimelineEventCard key={i} date={a.date} title={a.title} description={a.description} />)}
       {menu === 'fonts-imatges' && <>
         <div className="grid md:grid-cols-3 gap-3"><SearchBar value={query} onChange={setQuery} /><FilterPanel options={periods} value={period} onChange={setPeriod} /></div>
         <SectionCard title="Fonts històriques">{filteredSources.slice(0, 5).map((s) => <div key={s.id} className="mb-3"><SourceCard source={s} /><SourceViewer source={s} /></div>)}</SectionCard>
