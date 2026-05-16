@@ -146,7 +146,7 @@ En un primer moment, el govern optà per reformes limitades amb l’Estatut Reia
 
 Mendizábal impulsà la desamortització eclesiàstica per obtindre recursos fiscals, reduir el poder econòmic de l’Església i crear una base social liberal propietària. Encara que incrementà ingressos i transformà la propietat, també generà conflictes socials i no resolgué la pobresa camperola.
 
-La Constitució de 1837 representà un compromís entre moderats i progressistes: sobirania nacional, Corts bicamerals, declaració de drets i paper rellevant de la Corona. Això mostrava que el liberalisme espanyol avançava, però amb pactes i límits.
+La Constitució de 1837 representà un compromís entre moderats i progressistes: sobirania nacional, Corts bicamerals (Congrés i Senat), reconeixement de drets individuals (impremta, propietat i garanties jurídiques) i un paper rellevant de la Corona amb capacitat de dissoldre les Corts i nomenar govern. Això mostrava que el liberalisme espanyol avançava, però amb pactes i límits.
 
 La guerra carlina finalitzà principalment amb el Conveni de Bergara (1839), que facilità la integració d’una part de l’exèrcit carlí i consolidà la victòria isabelina. Després, la regència d’Espartero (1840-1843) intentà aprofundir reformes, però el seu autoritarisme i els conflictes amb el proteccionisme industrial català debilitarem el règim.
 
