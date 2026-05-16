@@ -5,6 +5,7 @@ import { mediaItems } from './data/media';
 import { historicalSources } from './data/sources';
 import { visualActivities } from './data/visualActivities';
 import { FilterPanel, ImageGallery, PeriodBadge, ProgressCard, SearchBar, SourceCard, SourceViewer, TimelineEventCard, TopicHero, VisualActivityCard } from './components/ui';
+import SafeImage from './components/SafeImage';
 
 type Menu = 'inici' | 'temari' | 'cronologia' | 'fonts-imatges' | 'simulacres' | 'glossari' | 'activitats';
 const MENU: Menu[] = ['inici', 'temari', 'cronologia', 'fonts-imatges', 'simulacres', 'glossari', 'activitats'];
@@ -34,7 +35,7 @@ export default function App() {
       </>}
       {menu === 'temari' && topics.map((t) => {
         const imgs = mediaItems.filter((m) => m.relatedTopic.toLowerCase().includes(t.title.split(' ')[0].toLowerCase()) || m.period.includes(t.title.split(' ')[0])).slice(0, 4);
-        return <SectionCard key={t.id} title={t.title}><PeriodBadge period={t.period} /><p className="mt-2 text-sm whitespace-pre-wrap">{t.summary}</p>{imgs[0] && <img src={imgs[0].imageUrl} alt={imgs[0].altText} className="w-full h-56 object-cover rounded-xl mt-3" />}<p className="mt-2 text-sm">Ús PAU: identifica autor, data, context i relació amb el canvi polític del període.</p><ImageGallery items={imgs} /></SectionCard>;
+        return <SectionCard key={t.id} title={t.title}><PeriodBadge period={t.period} /><p className="mt-2 text-sm whitespace-pre-wrap">{t.summary}</p>{imgs[0] && <SafeImage src={imgs[0].imageUrl} alt={imgs[0].altText} className="w-full h-56 object-cover rounded-xl mt-3" />}<p className="mt-2 text-sm">Ús PAU: identifica autor, data, context i relació amb el canvi polític del període.</p><ImageGallery items={imgs} /></SectionCard>;
       })}
       {menu === 'cronologia' && timelineActivities.slice(0, 20).map((a, i) => <TimelineEventCard key={i} date={a.date} title={a.title} description={a.description} imageUrl={mediaItems[i % mediaItems.length]?.imageUrl} />)}
       {menu === 'fonts-imatges' && <>
