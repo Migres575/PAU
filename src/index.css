@@ -3,5 +3,7 @@
 @tailwind utilities;
 
 :root { color-scheme: light dark; }
-body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; font-size: 18px; line-height: 1.8; }
 .card { @apply bg-white dark:bg-slate-800 rounded-2xl shadow-md p-4 border border-slate-200 dark:border-slate-700; }
+
+.card p, .card li { line-height: 1.9; }
