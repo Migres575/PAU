@@ -1,6 +1,6 @@
 import { Fragment, useMemo, useState } from 'react';
 import SectionCard from './components/SectionCard';
-import { essayQuestions, glossary, mockExams, responseModels, rubrics, testQuestions, timelineActivities, topics } from './data/content';
+import { glossary, mockExams, responseModels, rubrics, testQuestions, timelineActivities, topics } from './data/content';
 import { mediaItems } from './data/media';
 import { historicalSources } from './data/sources';
 import { FilterPanel, ImageGallery, PeriodBadge, ProgressCard, SearchBar, SourceCard, SourceViewer, TimelineEventCard, TopicHero } from './components/ui';
@@ -103,7 +103,7 @@ export default function App() {
         <SectionCard title="Fonts històriques">{filteredSources.slice(0, 5).map((s) => <div key={s.id} className="mb-3"><SourceCard source={s} /><SourceViewer source={s} /></div>)}</SectionCard>
         <SectionCard title="Imatges històriques"><ImageGallery items={filteredMedia} /></SectionCard>
       </>}
-      {menu === 'simulacres' && <SectionCard title="Simulador PAU millorat"><ul className="list-disc ml-5">{mockExams.map((m, i) => <li key={i}><strong>{m.title}</strong>: font escrita ({historicalSources[i % historicalSources.length].title}), imatge ({mediaItems[i % mediaItems.length].title}), desenvolupament ({essayQuestions[i % essayQuestions.length].question}), dues definicions ({m.shortDefinitions.join(', ')}), rúbrica ({rubrics[0].name}).</li>)}</ul></SectionCard>}
+      {menu === 'simulacres' && <SectionCard title="Simulador PAU millorat"><ul className="list-disc ml-5">{mockExams.map((m, i) => <li key={i}><strong>{m.title}</strong>: font escrita ({historicalSources[i % historicalSources.length].title}), imatge ({mediaItems[i % mediaItems.length].title}), desenvolupament ({m.essayQuestion}), dues definicions ({m.shortDefinitions.join(', ')}), rúbrica ({rubrics[0].name}).</li>)}</ul><div className="mt-4 space-y-3">{mockExams.map((m, i) => <article key={`solved-${i}`} className="rounded-xl border border-emerald-200 bg-emerald-50 p-4"><h4 className="font-semibold text-emerald-900">{m.title} · Resolució orientativa</h4><p className="text-sm mt-1"><strong>Temps recomanat:</strong> {m.recommendedTime}</p><ul className="mt-2 space-y-2">{m.solvedExam.map((item, idx) => <li key={idx}><p className="font-medium">{idx + 1}. {item.prompt}</p><p className="text-sm">{item.answer}</p></li>)}</ul></article>)}</div></SectionCard>}
       {menu === 'glossari' && <SectionCard title="Glossari"><div id="glossari" /><div className="grid md:grid-cols-2 gap-3">{glossary.map((g, i) => <article key={i} className="rounded-xl border border-slate-200 bg-white p-4"><p className="font-bold">{g.term}</p><p className="text-sm mt-1">{g.definition}</p><p className="text-xs mt-2 text-slate-600"><strong>Període:</strong> {g.period}</p><p className="text-xs text-slate-600"><strong>Tema relacionat:</strong> {g.relatedTopic}</p><p className="text-xs mt-2 text-slate-700"><strong>Exemple PAU:</strong> {g.exampleUse}</p></article>)}</div></SectionCard>}
 
     </main>

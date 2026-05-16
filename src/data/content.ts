@@ -20,7 +20,7 @@ export type GlossaryItem = { term: string; definition: string; period: string; r
 export type TestQuestion = { question: string; options: string[]; correctAnswer: number; explanation: string; topic: string; difficulty: 'baixa'|'mitjana'|'alta' };
 export type EssayQuestion = { question: string; topic: string; outline: string[]; keyConcepts: string[]; modelAnswer: string; commonMistakes: string[] };
 export type TimelineActivity = { date: string; title: string; description: string; period: string; category: string; relatedTopic: string; pauImportance: string };
-export type MockExam = { title: string; shortDefinitions: string[]; sourceCommentary: string; essayQuestion: string; correctionCriteria: string[]; recommendedTime: string };
+export type MockExam = { title: string; shortDefinitions: string[]; sourceCommentary: string; essayQuestion: string; correctionCriteria: string[]; recommendedTime: string; solvedExam: { prompt: string; answer: string }[] };
 export type Rubric = { name: string; excellent: string; notable: string; pass: string; fail: string };
 export type ResponseModel = { title: string; question: string; outline: string[]; answer: string; whyItWorks: string[]; mistakesToAvoid: string[] };
 
@@ -215,6 +215,23 @@ export const testQuestions: TestQuestion[] = Array.from({ length: 15 }, (_, i) =
 export const essayQuestions: EssayQuestion[] = topics.map((t) => ({ question: `Desenvolupa el tema: ${t.title}.`, topic: t.title, outline: t.answerOutline, keyConcepts: t.keyConcepts, modelAnswer: t.explanation, commonMistakes: t.commonMistakes }));
 export const timelineActivities: TimelineActivity[] = topics.flatMap((t) => t.chronology.map((c) => ({ date: c.split(':')[0], title: t.title, description: c, period: t.period, category: 'política', relatedTopic: t.title, pauImportance: 'Data clau per ordenar una resposta de desenvolupament a PAU.' })));
 export const sources: Source[] = [];
-export const mockExams: MockExam[] = [{ title: 'Simulacre PAU', shortDefinitions: glossary.slice(0, 2).map(g => g.term), sourceCommentary: 'Comentari guiat de la Constitució de 1812', essayQuestion: essayQuestions[0].question, correctionCriteria: ['Precisió històrica', 'Cronologia', 'Anàlisi', 'Expressió escrita'], recommendedTime: '90 minuts' }];
+export const mockExams: MockExam[] = [{
+  title: 'Simulacre PAU resolt',
+  shortDefinitions: glossary.slice(0, 2).map(g => g.term),
+  sourceCommentary: 'Comentari guiat de la Constitució de 1931',
+  essayQuestion: 'Explica les reformes polítiques i socials del primer bienni de la Segona República (1931-1933).',
+  correctionCriteria: ['Precisió històrica', 'Cronologia', 'Anàlisi', 'Expressió escrita'],
+  recommendedTime: '90 minuts',
+  solvedExam: [
+    {
+      prompt: 'Comentari de font: identifica idees principals de la Constitució de 1931 i contextualitza-la.',
+      answer: 'La font és primària, jurídica i política, redactada per les Corts constituents en 1931. Les idees centrals són la sobirania popular, la igualtat davant la llei, la no-confessionalitat de l’Estat i l’obertura a l’autonomia regional. S’aprova després de la caiguda de la monarquia d’Alfons XIII i dins un programa de democratització profunda. La seua novetat respecte de 1876 és clara: amplia drets civils i planteja un model més laic i social.'
+    },
+    {
+      prompt: 'Desenvolupament: reformes del primer bienni republicà.',
+      answer: 'Entre 1931 i 1933 els governs republicanosocialistes impulsaren reformes per modernitzar Espanya: reforma militar (Azaña), educativa (escola pública laica), laboral (jurats mixtos i millores obreres), religiosa (separació Església-Estat) i agrària (Llei de Reforma Agrària de 1932). Tot i l’ambició, l’aplicació fou lenta per manca de recursos, resistències de grans propietaris, oposició catòlica i conflictivitat social. Això polaritzà la vida política i facilità el gir conservador de 1933.'
+    }
+  ]
+}];
 export const rubrics: Rubric[] = [{ name: 'Resposta de desenvolupament', excellent: 'Cronologia exacta, arguments coherents i balanç crític.', notable: 'Bona contextualització amb alguna llacuna menor.', pass: 'Contingut acceptable però poc aprofundit.', fail: 'Errors cronològics o conceptuals greus.' }];
 export const responseModels: ResponseModel[] = topics.map((t) => ({ title: t.title, question: `Model de resposta: ${t.title}`, outline: t.answerOutline, answer: t.explanation, whyItWorks: ['Contextualitza', 'Argumenta', 'Conclou amb balanç'], mistakesToAvoid: t.commonMistakes }));
