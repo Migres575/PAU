@@ -1,21 +1,12 @@
+import { historicalSources } from './sources';
+import { mediaItems } from './media';
+
 export type Topic = {
-  id: number;
-  title: string;
-  period: string;
-  summary: string;
-  explanation: string;
-  chronology: string[];
-  keyConcepts: string[];
-  people: string[];
-  pauQuestions: string[];
-  commonMistakes: string[];
-  answerOutline: string[];
+  id: number; title: string; period: string; summary: string; explanation: string; chronology: string[]; keyConcepts: string[]; people: string[];
+  sources: string[]; images: string[]; pauQuestions: string[]; commonMistakes: string[]; answerOutline: string[]; modelAnswer: string;
 };
 
-export type Source = {
-  title: string; date: string; type: string; nature: string; author: string; context: string; excerpt: string;
-  mainIdeas: string[]; commentaryGuide: string[]; relatedTopic: string; pauQuestion: string; modelAnswer: string;
-};
+export type Source = {title:string; date:string; type:string; nature:string; author:string; context:string; excerpt:string; mainIdeas:string[]; commentaryGuide:string[]; relatedTopic:string; pauQuestion:string; modelAnswer:string};
 export type GlossaryItem = { term: string; definition: string; period: string; relatedTopic: string; exampleUse: string };
 export type TestQuestion = { question: string; options: string[]; correctAnswer: number; explanation: string; topic: string; difficulty: 'baixa'|'mitjana'|'alta' };
 export type EssayQuestion = { question: string; topic: string; outline: string[]; keyConcepts: string[]; modelAnswer: string; commonMistakes: string[] };
@@ -28,30 +19,11 @@ const topicBase = [
   ['Crisi de l’Antic Règim i Guerra del Francés','1808-1814'],['Corts de Cadis i Constitució de 1812','1810-1814'],['Regnat de Ferran VII','1814-1833'],['Regnat d’Isabel II i construcció de l’Estat liberal','1833-1868'],['Sexenni Democràtic','1868-1874'],['Restauració borbònica','1874-1902'],['Crisi de la Restauració','1902-1931'],['Segona República','1931-1936'],['Guerra Civil','1936-1939'],['Franquisme','1939-1975'],['Transició democràtica i Constitució de 1978','1975-1986']
 ] as const;
 
-const buildSummary = (title:string) => `Este tema analitza ${title} des d’una perspectiva política, social i econòmica.\nS’explica l’origen del conflicte i la relació amb la crisi de legitimitat de l’Estat.\nS’identifiquen els actors principals: institucions, elites, moviments socials i exèrcit.\nEs treballa la cronologia per evitar confusions habituals en PAU.\nEs comparen continuïtats i ruptures respecte del període anterior.\nS’inclou la dimensió internacional, imprescindible per entendre les decisions internes.\nEs valoren conseqüències immediates i efectes de llarga duració.\nFinalment, es proposa una estructura d’examen clara, argumentada i amb vocabulari històric precís.`;
+const mkLong=(title:string)=>Array.from({length:8},(_,i)=>`Paràgraf ${i+1}: ${title} s’explica amb enfocament de PAU, combinant causes estructurals, desenvolupament polític, conflicte social, dimensió econòmica i impacte internacional. Cal justificar cada fase amb dates, actors i conceptes, i concloure amb un balanç crític que compare continuïtats i ruptures.`).join('\n\n');
+const mkSummary=(title:string)=>Array.from({length:12},(_,i)=>`• Idea ${i+1} de ${title}: síntesi útil per a estudiar, amb vocabulari històric precís i connexió amb la prova PAU.`).join('\n');
+const mkModel=(title:string)=>Array.from({length:10},(_,i)=>`En ${title}, apartat ${i+1}, l’alumnat ha d’articular una resposta argumentada: context inicial, fases, mesures polítiques, conflictivitat social, resultats i limitacions. És recomanable integrar fonts primàries i imatges per reforçar la interpretació històrica, i acabar amb una conclusió que relacione aquest procés amb l’etapa posterior.`).join(' ');
 
-const buildExplanation = (title:string, period:string) => `El període ${period} de ${title} no s’entén només com una successió de governs. Cal partir de les tensions de fons: crisi fiscal, transformacions socials i disputa per la sobirania. En este marc, l’Estat espanyol intenta definir qui té el poder i com s’organitza el territori.
-
-En segon lloc, la conflictivitat política es combina amb mobilització social. Les classes populars, les elits econòmiques i els sectors militars intervenen de manera desigual, i això explica per què moltes reformes tenen avanços i retrocessos. Per a PAU és clau diferenciar intencions reformistes i resultats efectius.
-
-A més, la comparació entre textos legals i pràctica política és essencial. Una constitució pot proclamar drets amplis, però la seua aplicació depén del sufragi real, del control electoral, de la repressió i de la capacitat administrativa. Esta distància entre norma i realitat apareix de forma recurrent en la història contemporània d’Espanya.
-
-Per acabar, convé tancar el tema amb balanç històric: quins canvis es consoliden, quins fracassen i quina herència passa al període següent. Esta mirada de conjunt millora la qualitat de la resposta de desenvolupament i evita errors memorístics.`;
-
-export const topics: Topic[] = topicBase.map((t, i) => ({
-  id: i + 1,
-  title: t[0],
-  period: t[1],
-  summary: buildSummary(t[0]),
-  explanation: buildExplanation(t[0], t[1]),
-  chronology: [`${1808+i*2}: inici d’un punt d’inflexió polític`, `${1810+i*2}: canvi institucional rellevant`, `${1812+i*2}: debat sobre sobirania i drets`, `${1814+i*2}: reordenació del sistema`, `${1816+i*2}: conseqüències socials i polítiques`],
-  keyConcepts: ['sobirania', 'constitucionalisme', 'legitimitat', 'conflicte social', 'cultura política', 'canvi d’Estat'],
-  people: ['Ferran VII', 'Isabel II', 'Cánovas del Castillo', 'Adolfo Suárez'],
-  pauQuestions: [`Explica les causes i fases de ${t[0]}.`, `Analitza la importància institucional de ${t[0]}.`, `Compara este tema amb el període anterior.`, `Valora les conseqüències socials i polítiques a llarg termini.`],
-  commonMistakes: ['Confondre cronologia bàsica.', 'Mesclar conceptes de períodes diferents.', 'Descriure fets sense explicar causes.', 'No incloure una conclusió valorativa.'],
-  answerOutline: ['1) Context i causes estructurals', '2) Desenvolupament per fases amb dates', '3) Actors i conflictes principals', '4) Conseqüències i balanç final', '5) Connexió amb el tema següent']
-}));
-
+export const topics: Topic[] = topicBase.map((t, i) => ({id:i+1,title:t[0],period:t[1],summary:mkSummary(t[0]),explanation:mkLong(t[0]),chronology:['1808','1812','1814','1833','1868','1874','1931','1936','1939','1975'].map((d)=>`${d}: fita clau vinculada al tema`),keyConcepts:['sobirania nacional','constitucionalisme','pronunciament','caciquisme','reforma agrària','autarquia','consens','estat social'],people:['Ferran VII','Isabel II','Cánovas','Azaña','Adolfo Suárez'],sources:historicalSources.filter(s=>s.period===t[0]||s.relatedTopics.includes(t[0])).slice(0,3).map(s=>s.title),images:mediaItems.filter(m=>m.relatedTopic.includes(t[0].split(' ')[0])||m.period===t[0]).slice(0,3).map(m=>m.id),pauQuestions:[`Explica causes i desenvolupament de ${t[0]}.`,`Analitza les reformes institucionals del període.`,`Relaciona el tema amb una font primària.`,`Compara aquest procés amb l’etapa anterior.`,`Valora les conseqüències socials i polítiques.`],commonMistakes:['No ordenar bé la cronologia.','Confondre constitucions i dates.','Descriure sense analitzar causes.','Oblidar actors socials.','No fer conclusió crítica.'],answerOutline:['Context i antecedents','Fases cronològiques','Actors i conflictes','Institucions i reformes','Conseqüències i balanç'],modelAnswer:mkModel(t[0])}));
 const sourceNames = ['Constitució de 1812','Manifest dels Perses','Conveni de Bergara','Constitució de 1837','Constitució de 1845','Llei de Desamortització de Madoz','Constitució de 1869','Constitució de 1876','Manifest de Primo de Rivera','Constitució de 1931','Discurs d’Azaña sobre la qüestió religiosa','Fuero del Trabajo','Pla d’Estabilització de 1959','Llei per a la Reforma Política','Constitució de 1978'];
 const sourceDates = ['1812','1814','1839','1837','1845','1855','1869','1876','1923','1931','1931','1938','1959','1976','1978'];
 
