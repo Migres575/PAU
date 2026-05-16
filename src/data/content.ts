@@ -232,6 +232,33 @@ export const mockExams: MockExam[] = [{
       answer: 'Entre 1931 i 1933, els governs republicanosocialistes intentaren modernitzar l’Estat i democratitzar la societat. La reforma militar d’Azaña volia reduir l’excés d’oficials i garantir la subordinació de l’exèrcit al poder civil. La reforma educativa apostà per escola pública, laica i expansió de la xarxa escolar. En l’àmbit laboral, Largo Caballero impulsà jurats mixtos i normativa protectora del treballador. En matèria religiosa, es limità el poder institucional de l’Església i es defensà la laïcitat. La reforma agrària (llei de 1932) pretenia redistribuir terres i reduir el conflicte al camp. També s’obrí el camí autonòmic (Estatut de Catalunya de 1932). Els límits foren grans: escassetat de recursos, burocràcia lenta, resistència de terratinents, oposició de la dreta i conflictivitat social (com els fets de Casas Viejas, 1933). Les conseqüències foren polarització política, desgast del govern i victòria de les dretes en les eleccions de novembre de 1933.'
     }
   ]
-}];
+},
+{
+  title: 'Simulacre PAU Comunitat Valenciana 2026 (model oficial annexat)',
+  shortDefinitions: ['Constitució de 1812', 'torn pacífic', 'autarquia franquista'],
+  sourceCommentary: 'Comentari de font segons model oficial annexat: classificació, anàlisi del contingut i context històric comparat.',
+  essayQuestion: 'Exposició de tema: del liberalisme gadità a la construcció de l’Estat liberal (1808-1843) o transformacions econòmiques i socials (1959-1975).',
+  correctionCriteria: ['Estructura exacta del model oficial (definicions, font, tema, qüestió transversal)', 'Precisió conceptual i cronològica', 'Anàlisi de causes i conseqüències', 'Relació amb context europeu', 'Correcció lingüística i claredat expositiva'],
+  recommendedTime: '90 minuts',
+  solvedExam: [
+    {
+      prompt: 'Definicions breus: tria dos termes i defineix-los amb context històric.',
+      answer: 'Exemple 1 (Constitució de 1812): text jurídic aprovat a Cadis el 19 de març de 1812 que proclama sobirania nacional, divisió de poders i representació parlamentària; és clau en la ruptura amb l’Antic Règim. Exemple 2 (torn pacífic): mecanisme polític de la Restauració borbònica basat en l’alternança pactada entre conservadors i liberals, sostingut pel caciquisme i el frau electoral.'
+    },
+    {
+      prompt: 'Comentari de font: classifica una font (text de 1812 o taula socioeconòmica 1900-1975), analitza-la i contextualitza-la.',
+      answer: 'Si es treballa el text de 1812, cal indicar que és font primària, pública i juridicopolítica; idea central: la sobirania resideix en la nació i no en el rei. El context és la Guerra del Francés i la crisi de la monarquia absoluta. Si es treballa la taula, la tendència general és el descens del sector primari i l’ascens del secundari i terciari, especialment entre 1960 i 1975, en relació amb industrialització, migracions i modernització econòmica.'
+    },
+    {
+      prompt: 'Exposició de tema: desenvolupa una de les dues opcions del model oficial.',
+      answer: 'En l’opció 1808-1843, la clau és explicar la crisi de l’Antic Règim, la proposta liberal gaditana, la restauració absolutista de Ferran VII i la consolidació inicial de l’Estat liberal durant regències i primera guerra carlina. En l’opció 1959-1975, s’ha de perioditzar el pas de l’autarquia al desenvolupisme, destacant canvis productius, migratoris i socials, i els límits polítics de la dictadura.'
+    },
+    {
+      prompt: 'Qüestió transversal: relació entre conflicte polític i ampliació de drets (segles XIX-XX).',
+      answer: 'Una resposta sòlida compara etapes: liberalisme doctrinari del XIX (drets limitats), avanç democràtic parcial de la Segona República, regressió de drets durant el franquisme i recuperació de llibertats en la Transició. La tesi és que les ampliacions de drets a Espanya no han sigut lineals, sinó resultat de tensions entre ruptura, reforma i pacte.'
+    }
+  ]
+}
+];
 export const rubrics: Rubric[] = [{ name: 'Resposta de desenvolupament', excellent: 'Cronologia exacta, arguments coherents i balanç crític.', notable: 'Bona contextualització amb alguna llacuna menor.', pass: 'Contingut acceptable però poc aprofundit.', fail: 'Errors cronològics o conceptuals greus.' }];
 export const responseModels: ResponseModel[] = topics.map((t) => ({ title: t.title, question: `Model de resposta: ${t.title}`, outline: t.answerOutline, answer: t.explanation, whyItWorks: ['Contextualitza', 'Argumenta', 'Conclou amb balanç'], mistakesToAvoid: t.commonMistakes }));
