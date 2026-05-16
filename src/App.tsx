@@ -20,6 +20,14 @@ export default function App() {
 
   const filteredSources = historicalSources.filter((s) => (period === 'Tots' || s.period === period) && `${s.title} ${s.historicalContext}`.toLowerCase().includes(query.toLowerCase()));
   const filteredMedia = mediaItems.filter((m) => (period === 'Tots' || m.period === period) && `${m.title} ${m.description}`.toLowerCase().includes(query.toLowerCase()));
+  const quickLinks: Array<{ title: string; target: Menu }> = [
+    { title: 'Temari', target: 'temari' },
+    { title: 'Cronologia', target: 'cronologia' },
+    { title: 'Fonts històriques', target: 'fonts-imatges' },
+    { title: 'Comentari de fonts', target: 'fonts-imatges' },
+    { title: 'Glossari', target: 'glossari' },
+    { title: 'Simulacres PAU', target: 'simulacres' },
+  ];
 
   return <div className="min-h-screen bg-stone-100 text-slate-800">
     <header className="bg-slate-900 text-stone-50 p-6 shadow-lg"><div className="max-w-6xl mx-auto"><h1 className="text-3xl font-bold">PAU Història d’Espanya</h1><p className="text-stone-200">Preparació per a 2n de Batxillerat · Comunitat Valenciana</p></div></header>
@@ -28,7 +36,19 @@ export default function App() {
       {menu === 'inici' && <>
         <TopicHero title="PAU Història d’Espanya" subtitle="Preparació guiada, fonts primàries i pràctica visual" imageUrl={mediaItems[0].imageUrl} />
         <div className="grid md:grid-cols-3 gap-4">
-          {['Temari','Cronologia','Fonts històriques','Comentari de fonts','Glossari','Simulacres PAU'].map((x) => <SectionCard key={x} title={x}><p>Accés ràpid a {x.toLowerCase()}.</p></SectionCard>)}
+          {quickLinks.map(({ title, target }) => (
+            <button
+              key={title}
+              type="button"
+              onClick={() => setMenu(target)}
+              className="text-left rounded-2xl transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-700"
+              aria-label={`Anar a ${title}`}
+            >
+              <SectionCard title={title}>
+                <p>Accés ràpid a {title.toLowerCase()}.</p>
+              </SectionCard>
+            </button>
+          ))}
         </div>
         <div className="grid md:grid-cols-2 gap-4"><ProgressCard progress={progress} /><SectionCard title="Repàs ràpid"><p>Continua estudiant des dels test, les fonts i els simulacres amb seguiment del progrés.</p></SectionCard></div>
         <SectionCard title="Mosaic visual per períodes"><ImageGallery items={mediaItems.slice(0,9)} /></SectionCard>
