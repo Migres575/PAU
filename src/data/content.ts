@@ -24,115 +24,125 @@ export type MockExam = { title: string; shortDefinitions: string[]; sourceCommen
 export type Rubric = { name: string; excellent: string; notable: string; pass: string; fail: string };
 export type ResponseModel = { title: string; question: string; outline: string[]; answer: string; whyItWorks: string[]; mistakesToAvoid: string[] };
 
-const topicBase = [
-  ['Crisi de l’Antic Règim i Guerra del Francés','1808-1814'],['Corts de Cadis i Constitució de 1812','1810-1814'],['Regnat de Ferran VII','1814-1833'],['Regnat d’Isabel II i construcció de l’Estat liberal','1833-1868'],['Sexenni Democràtic','1868-1874'],['Restauració borbònica','1874-1902'],['Crisi de la Restauració','1902-1931'],['Segona República','1931-1936'],['Guerra Civil','1936-1939'],['Franquisme','1939-1975'],['Transició democràtica i Constitució de 1978','1975-1986']
-] as const;
+export const topics: Topic[] = [
+  {
+    id: 1,
+    title: 'Crisi de l’Antic Règim i Guerra del Francés',
+    period: '1808-1814',
+    summary: `La crisi de l’Antic Règim a Espanya esclata en un context de debilitat de la monarquia borbònica i d’expansió napoleònica a Europa.
+La invasió francesa de 1808 i les abdicacions de Baiona provocaren un buit de poder i una crisi de legitimitat.
+El poble, les juntes i part de l’exèrcit impulsaren una resistència armada molt desigual al territori.
+La guerra combinà fronts militars convencionals amb guerrilles locals que desgastaren les tropes franceses.
+Alhora, el conflicte tingué dimensió internacional per la intervenció britànica dirigida per Wellington.
+La guerra causà una forta destrucció econòmica, crisi agrària i retrocés demogràfic en moltes zones.
+Políticament, el conflicte obrí el debat entre absolutisme i liberalisme.
+Les Corts reunides a Cadis intentaren construir un nou marc polític en plena guerra.
+Això connecta la guerra amb l’origen del constitucionalisme espanyol contemporani.
+La derrota final de Napoleó permeté el retorn de Ferran VII en 1814.
+Tanmateix, la tornada del rei no significà estabilitat, sinó un nou cicle de conflicte polític.
+Per a PAU és clau distingir causes, desenvolupament bèl·lic i conseqüències institucionals.` ,
+    explanation: `La crisi de 1808 no fou un accident sobtat, sinó el resultat de la descomposició de l’Antic Règim espanyol. La monarquia de Carles IV patia desprestigi polític, dependència exterior i tensions internes, agreujades pel pes de Manuel Godoy i per la derrota naval de Trafalgar (1805), que afeblí el paper internacional d’Espanya.
 
-const buildSummary = (title:string) => `Este tema analitza ${title} des d’una perspectiva política, social i econòmica.\nS’explica l’origen del conflicte i la relació amb la crisi de legitimitat de l’Estat.\nS’identifiquen els actors principals: institucions, elites, moviments socials i exèrcit.\nEs treballa la cronologia per evitar confusions habituals en PAU.\nEs comparen continuïtats i ruptures respecte del període anterior.\nS’inclou la dimensió internacional, imprescindible per entendre les decisions internes.\nEs valoren conseqüències immediates i efectes de llarga duració.\nFinalment, es proposa una estructura d’examen clara, argumentada i amb vocabulari històric precís.`;
+Napoleó aprofità esta debilitat per intervenir en la Península. Amb el Tractat de Fontainebleau (1807), les tropes franceses entraren suposadament per atacar Portugal, però acabaren ocupant posicions estratègiques. Les abdicacions de Baiona (maig de 1808) i la imposició de Josep I desencadenaren la ruptura de l’obediència dinàstica tradicional.
 
-const buildExplanation = (title:string, period:string) => `El període ${period} de ${title} no s’entén només com una successió de governs. Cal partir de les tensions de fons: crisi fiscal, transformacions socials i disputa per la sobirania. En este marc, l’Estat espanyol intenta definir qui té el poder i com s’organitza el territori.
+L’aixecament del 2 de maig de 1808 a Madrid simbolitza l’inici de la resistència. Ràpidament es formaren juntes locals i provincials que afirmaren governar en nom de Ferran VII. Esta sobirania de fet des de baix representà una novetat política important, perquè traslladava la legitimitat a la nació en absència del rei.
 
-En segon lloc, la conflictivitat política es combina amb mobilització social. Les classes populars, les elits econòmiques i els sectors militars intervenen de manera desigual, i això explica per què moltes reformes tenen avanços i retrocessos. Per a PAU és clau diferenciar intencions reformistes i resultats efectius.
+La guerra tingué diverses fases: èxits inicials espanyols (Bailén, 1808), contraofensiva francesa amb la presència directa de Napoleó, i etapa final de desgast (1812-1814) amb el suport britànic. Les guerrilles, encara que descoordinades, foren decisives per dificultar el control francès del territori.
 
-A més, la comparació entre textos legals i pràctica política és essencial. Una constitució pot proclamar drets amplis, però la seua aplicació depén del sufragi real, del control electoral, de la repressió i de la capacitat administrativa. Esta distància entre norma i realitat apareix de forma recurrent en la història contemporània d’Espanya.
+El cost social i econòmic fou enorme: morts, fam, destrucció d’infraestructures i bloqueig comercial. A més, la guerra accentuà fractures ideològiques entre afrancesats, absolutistes i liberals. Este pluralisme polític explica per què el final del conflicte no portà una pau política duradora.
 
-Per acabar, convé tancar el tema amb balanç històric: quins canvis es consoliden, quins fracassen i quina herència passa al període següent. Esta mirada de conjunt millora la qualitat de la resposta de desenvolupament i evita errors memorístics.`;
+La principal conseqüència estructural és que la guerra obrí el camí del liberalisme polític, articulat a Cadis, però també deixà una cultura de militarització i pronunciaments que marcaria el segle XIX espanyol. Per això este tema és clau per entendre la transició de l’Antic Règim a l’Estat liberal.`,
+    chronology: ['1807: Tractat de Fontainebleau entre Espanya i França.', '2 maig 1808: alçament de Madrid contra l’ocupació francesa.', 'juliol 1808: victòria espanyola a Bailén.', '1810: reunió de les Corts a Cadis.', '1812: ofensiva aliada i inici del retrocés francès.', '1813: Tractat de Valençay.', '1814: retirada francesa i retorn de Ferran VII.'],
+    keyConcepts: ['Antic Règim', 'abdicacions de Baiona', 'juntes', 'guerrilla', 'sobirania nacional', 'guerra d’independència'],
+    people: ['Carles IV', 'Manuel Godoy', 'Napoleó Bonaparte', 'Josep I Bonaparte', 'Arthur Wellesley (Wellington)', 'Ferran VII'],
+    pauQuestions: ['Explica les causes internes i externes de la Guerra del Francés.', 'Descriu les fases del conflicte i el paper de la guerrilla.', 'Analitza les conseqüències polítiques de la guerra sobre la crisi de l’Antic Règim.'],
+    commonMistakes: ['Confondre la Guerra del Francés amb les guerres carlines.', 'Oblidar la dimensió internacional britànica.', 'No relacionar guerra i naixement del liberalisme.'],
+    answerOutline: ['Context europeu i crisi borbònica', 'Invasió, Baiona i alçament de 1808', 'Fases militars i guerrilla', 'Impacte social i econòmic', 'Conseqüències polítiques i llegat']
+  },
+  {
+    id: 2,
+    title: 'Corts de Cadis i Constitució de 1812',
+    period: '1810-1814',
+    summary: `Les Corts de Cadis naixen durant la Guerra del Francés com a resposta al buit de poder provocat per la invasió napoleònica.
+Representaren un intent de construir legitimitat política sense el rei present.
+A Cadis confluiren diputats peninsulars i americans amb interessos sovint diferents.
+El debat central fou qui tenia la sobirania: el monarca o la nació.
+La Constitució de 1812 proclamà la sobirania nacional i la divisió de poders.
+També establí sufragi masculí indirecte, llibertat d’impremta i igualtat jurídica formal.
+Confirmà la confessionalitat catòlica de l’Estat, mostrant límits del programa liberal.
+El text intentava desmantellar estructures de l’Antic Règim i crear un Estat centralitzat.
+La seua aplicació fou irregular per la guerra i l’oposició absolutista.
+Malgrat la curta vigència inicial, es convertí en símbol del liberalisme hispànic.
+Influïren en processos constitucionals posteriors a Espanya i a Amèrica.
+En PAU és fonamental separar principis constitucionals, pràctica política i límits reals.` ,
+    explanation: `La reunió de les Corts a Cadis (1810) respon a una necessitat política urgent: organitzar la resistència i donar cobertura legal al govern en guerra. La Junta Central cedí el protagonisme a una assemblea representativa que, malgrat les dificultats de guerra, assumí funcions constituents.
 
-export const topics: Topic[] = topicBase.map((t, i) => ({
-  id: i + 1,
-  title: t[0],
-  period: t[1],
-  summary: buildSummary(t[0]),
-  explanation: buildExplanation(t[0], t[1]),
-  chronology: [`${1808+i*2}: inici d’un punt d’inflexió polític`, `${1810+i*2}: canvi institucional rellevant`, `${1812+i*2}: debat sobre sobirania i drets`, `${1814+i*2}: reordenació del sistema`, `${1816+i*2}: conseqüències socials i polítiques`],
-  keyConcepts: ['sobirania', 'constitucionalisme', 'legitimitat', 'conflicte social', 'cultura política', 'canvi d’Estat'],
-  people: ['Ferran VII', 'Isabel II', 'Cánovas del Castillo', 'Adolfo Suárez'],
-  pauQuestions: [`Explica les causes i fases de ${t[0]}.`, `Analitza la importància institucional de ${t[0]}.`, `Compara este tema amb el període anterior.`, `Valora les conseqüències socials i polítiques a llarg termini.`],
-  commonMistakes: ['Confondre cronologia bàsica.', 'Mesclar conceptes de períodes diferents.', 'Descriure fets sense explicar causes.', 'No incloure una conclusió valorativa.'],
-  answerOutline: ['1) Context i causes estructurals', '2) Desenvolupament per fases amb dates', '3) Actors i conflictes principals', '4) Conseqüències i balanç final', '5) Connexió amb el tema següent']
-}));
+Cadis era una plaça forta no ocupada pels francesos i amb intensa activitat comercial atlàntica. Això afavorí la circulació d’idees il·lustrades i liberals. No obstant això, la composició de les Corts no era democràtica en sentit modern i quedava condicionada per absències, suplements i interessos corporatius.
 
-const sourceNames = ['Constitució de 1812','Manifest dels Perses','Conveni de Bergara','Constitució de 1837','Constitució de 1845','Llei de Desamortització de Madoz','Constitució de 1869','Constitució de 1876','Manifest de Primo de Rivera','Constitució de 1931','Discurs d’Azaña sobre la qüestió religiosa','Fuero del Trabajo','Pla d’Estabilització de 1959','Llei per a la Reforma Política','Constitució de 1978'];
-const sourceDates = ['1812','1814','1839','1837','1845','1855','1869','1876','1923','1931','1931','1938','1959','1976','1978'];
+La decisió més transcendental fou declarar la sobirania nacional. Este principi trencava amb la legitimitat d’origen diví de la monarquia absoluta i convertia la nació en font última del poder. A partir d’ací, les Corts legislaren per abolir institucions senyorials i reforçar un marc jurídic uniforme.
 
-const sourceModel = (name:string) => `La ${name} és una font primària de gran valor per a PAU perquè permet relacionar llenguatge polític i context històric. En primer lloc, cal classificar-la (text jurídic, manifest o discurs) i identificar autor, destinatari i intenció. En segon lloc, convé explicar el moment concret: crisi institucional, canvi de règim o voluntat de consolidació del poder. Este pas és imprescindible per a no comentar el text de manera descontextualitzada.
+La Constitució de 1812, promulgada el 19 de març, articulava una monarquia constitucional amb separació de poders: Corts unicamerals per al legislatiu, rei per a l’executiu i tribunals per al judicial. Reconeixia drets com la llibertat d’impremta i establia un sistema electoral masculí indirecte, ampli per al context però encara restringit.
 
-Després, s’han d’extraure idees clau amb paraules pròpies: quin model d’Estat defensa, quins drets reconeix o limita, i com justifica l’autoritat. En molts casos, el text mostra la tensió entre reforma i ordre, entre participació política i control social. Eixa tensió ajuda a entendre per què alguns projectes van triomfar només parcialment.
+Tanmateix, el text presentava límits clars. Mantingué la religió catòlica com a única permesa, no resolgué de manera satisfactòria la representació americana i topà amb resistències de sectors privilegiats. La guerra dificultava, a més, l’aplicació efectiva de moltes reformes en el territori.
 
-Finalment, una bona resposta PAU tanca amb conseqüències: impacte immediat, continuïtats en etapes posteriors i límits pràctics. Si la conclusió connecta el document amb l’evolució general de la història contemporània d’Espanya, la valoració és més alta perquè demostra domini cronològic, conceptual i argumentatiu.`;
+Quan Ferran VII tornà en 1814, abolí la Constitució i restaurà l’absolutisme. Malgrat això, la “Pepa” quedà com a referent simbòlic i doctrinal del liberalisme espanyol, recuperada en el Trienni Liberal i present en la cultura política del segle XIX.`,
+    chronology: ['1810: inauguració de les Corts de Cadis.', '1811: abolició dels senyorius jurisdiccionals.', '19 març 1812: promulgació de la Constitució de 1812.', '1813: Tractat de Valençay i final de la guerra imminent.', 'maig 1814: Ferran VII aboleix la Constitució i restaura l’absolutisme.'],
+    keyConcepts: ['sobirania nacional', 'divisió de poders', 'monarquia constitucional', 'sufragi indirecte', 'nació', 'liberalisme gadità'],
+    people: ['Agustín Argüelles', 'Diego Muñoz Torrero', 'Ferran VII', 'diputats americans de Cadis'],
+    pauQuestions: ['Comenta els principis polítics de la Constitució de 1812.', 'Explica els límits socials i polítics del model gadità.', 'Relaciona Corts de Cadis i crisi de l’Antic Règim.'],
+    commonMistakes: ['Dir que la Constitució establí sufragi universal directe.', 'Oblidar la confessionalitat catòlica.', 'No explicar per què s’aboleix en 1814.'],
+    answerOutline: ['Origen de les Corts en guerra', 'Principis constitucionals de 1812', 'Reformes legislatives', 'Límits i oposicions', 'Abolició i llegat històric']
+  },
+  {
+    id: 3,
+    title: 'Regnat de Ferran VII',
+    period: '1814-1833',
+    summary: `El regnat de Ferran VII és una etapa clau per entendre la lluita entre absolutisme i liberalisme a l’Espanya contemporània.
+Comença en 1814 amb la restauració de l’absolutisme i l’anul·lació de l’obra de Cadis.
+El rei governa inicialment amb repressió política i retorn de privilegis tradicionals.
+La crisi d’Hisenda, la conflictivitat social i la pressió militar afavoriren pronunciaments liberals.
+El de Rafael del Riego (1820) obrí el Trienni Liberal i restablí la Constitució de 1812.
+Durant eixe trienni es feren reformes administratives, fiscals i militars amb forta resistència absolutista.
+En 1823, la intervenció dels Cent Mil Fills de Sant Lluís restaurà de nou l’absolutisme.
+La Dècada Ominosa (1823-1833) combinà repressió, crisi econòmica i intents parcials de reforma.
+Paral·lelament, s’accelerà la independència de la major part de l’imperi americà.
+La qüestió successòria culminà amb la Pragmàtica Sanció i l’oposició carlina.
+A la mort del rei, en 1833, esclatà la Primera Guerra Carlina.
+Per a PAU cal perioditzar bé: Sexenni absolutista, Trienni Liberal i Dècada Ominosa.` ,
+    explanation: `Ferran VII tornà en 1814 en un context d’expectatives contradictòries. Mentre els liberals esperaven consolidar el marc constitucional de 1812, els sectors absolutistes pressionaren per restaurar el poder reial ple. El Manifest dels Perses serví de suport ideològic a la ruptura amb el constitucionalisme.
 
-export const sources: Source[] = sourceNames.map((n,i)=>( {
-  title:n,date:sourceDates[i],type: i%3===0?'constitucional':i%3===1?'manifest polític':'text legal',nature:'font primària política',author:['Corts','Diputats absolutistes','Espartero i Maroto','Corts constituents'][i%4],
-  context:`${n} s’aprova en un moment de redefinició del poder i de conflicte entre projectes polítics. El document reflectix la lluita per fixar la legitimitat de l’Estat i ordenar la participació política.`,
-  excerpt:'«La nació, representada legalment, establix els principis que han de regir la vida pública»',
-  mainIdeas:['Defineix un marc polític concret.', 'Respon a una crisi de legitimitat.', 'Té conseqüències institucionals duradores.'],
-  commentaryGuide:['Classifica tipus i naturalesa.', 'Contextualitza cronològicament.', 'Explica idees centrals i vocabulari polític.', 'Valora impacte i límits històrics.'],
-  relatedTopic: topics[Math.min(i,10)].title,
-  pauQuestion:`Comenta ${n} com a font històrica i relaciona’l amb el procés de canvi polític del període.`,
-  modelAnswer:sourceModel(n)
-}));
+El primer període (1814-1820) es caracteritza per l’anul·lació de la Constitució, la persecució de liberals i la restauració institucional de l’Antic Règim. No obstant això, l’Estat patia una crisi fiscal profunda i creixia el malestar en exèrcit i societat, sobretot per l’impacte de la guerra i la pèrdua de control colonial.
 
-const terms = Array.from({length:60},(_,i)=>`Concepte històric ${i+1}`);
-export const glossary: GlossaryItem[] = terms.map((term,i)=>({term,definition:`${term} designa una idea o pràctica política clau per entendre l’evolució de l’Espanya contemporània, especialment la relació entre Estat, societat i drets.`,period:i<30?'Segle XIX':'Segle XX',relatedTopic:topics[i%11].title,exampleUse:`En una resposta PAU, ${term} es pot utilitzar per argumentar causes, mecanismes i conseqüències d’un canvi de règim.`}));
+En 1820, el pronunciament de Riego obligà el rei a jurar la Constitució, iniciant el Trienni Liberal. Les Corts impulsaren reformes per modernitzar administració i economia, limitar poders tradicionals i reforçar la Milícia Nacional. El procés, però, quedà tensionat per divisions entre moderats i exaltats.
 
-export const testQuestions: TestQuestion[] = Array.from({length:80},(_,i)=>({
-  question:`Pregunta tipus test ${i+1}: quin enunciat descriu millor el procés històric estudiat en ${topics[i%11].title}?`,
-  options:['Predomini del canvi constitucional amb conflicte social','Estabilitat política total sense oposició','Absència de factors internacionals','Participació democràtica universal constant'],
-  correctAnswer:0,
-  explanation:'La clau és combinar cronologia, conflicte polític i límits de la participació; les altres opcions simplifiquen excessivament el procés.',
-  topic:topics[i%11].title,
-  difficulty: i%3===0?'baixa':i%3===1?'mitjana':'alta'
-}));
+L’oposició absolutista interna i la por de les monarquies europees a l’expansió liberal acabaren afavorint la intervenció francesa de 1823. Els Cent Mil Fills de Sant Lluís restabliren Ferran com a monarca absolut i posaren fi al Trienni. S’inicià així la Dècada Ominosa amb intensa repressió política.
 
-const essayAnswer = (q:string) => `${q} requereix una resposta organitzada i amb arguments. Per començar, situa el període amb dues o tres dates clau i identifica el problema central: crisi de legitimitat, reforma institucional o conflicte social. Esta introducció ha de ser breu, però suficient per demostrar que domines el marc cronològic.
+En els últims anys del regnat coexistiren immobilisme i reformes limitades. La fallida de la Hisenda i la descomposició de l’imperi americà obligaven a canvis, però el nucli absolutista bloquejava transformacions profundes. Mentrestant, la disputa successòria entre isabelins i carlins polaritzava la política.
 
-En el desenvolupament, ordena el tema en fases. En cada fase, combina decisions polítiques, reaccions socials i condicions econòmiques. Evita el relat memorístic: no és només dir què passa, sinó explicar per què passa i amb quins efectes. Si hi ha constitucions o lleis importants, indica quin model de sobirania defenen, qui pot votar, quin paper té l’executiu i com s’organitza el territori. Si el tema és de guerra o dictadura, diferencia clarament causes, desenvolupament i conseqüències humanes.
-
-També convé introduir comparacions. Per exemple, pots contrastar projectes reformistes i opcions conservadores, o diferenciar text legal i aplicació real. Esta comparació dona qualitat analítica i evita errors comuns com confondre declaració de drets amb compliment efectiu. A més, utilitza vocabulari específic (caciquisme, autarquia, consens, sobirania nacional, estat integral) i explica’l dins del context.
-
-Per a concloure, fes un balanç: què canvia de manera duradora i què queda pendent. Relaciona el tema amb el període següent i assenyala una continuïtat i una ruptura. Una conclusió així demostra maduresa historiogràfica i és especialment útil en PAU perquè integra cronologia, conceptes i capacitat d’argumentació.`;
-
-export const essayQuestions: EssayQuestion[] = Array.from({length:25},(_,i)=>({
-  question:`Desenvolupa de manera crítica el tema ${topics[i%11].title} i valora el seu impacte en la construcció de l’Estat contemporani.`,
-  topic:topics[i%11].title,
-  outline:['Context i causes','Fases del procés','Actors i conflictes','Conseqüències i balanç'],
-  keyConcepts:topics[i%11].keyConcepts,
-  modelAnswer:essayAnswer(`L’assaig ${i+1}`),
-  commonMistakes:['No usar dates clau.', 'Confondre períodes.', 'No justificar causes.', 'Tancar sense conclusió valorativa.']
-}));
-
-export const timelineActivities: TimelineActivity[] = Array.from({length:70},(_,i)=>({
-  date:`${1808+i}`,
-  title:`Fet clau de ${1808+i}`,
-  description:`Esdeveniment representatiu de la història contemporània d’Espanya que ajuda a practicar relacions de causa-efecte, cronologia i canvi institucional.`,
-  period: i<30?'Segle XIX': i<60?'Primera meitat del segle XX':'Transició i integració europea',
-  category:['política','social','econòmica','militar'][i%4],
-  relatedTopic:topics[i%11].title,
-  pauImportance:'Important en PAU perquè permet ordenar processos i justificar continuïtats i ruptures.'
-}));
-
-export const mockExams: MockExam[] = Array.from({length:6},(_,i)=>({
-  title:`Simulacre PAU ${i+1}`,
-  shortDefinitions:[glossary[i].term, glossary[i+20].term],
-  sourceCommentary:`Comentari guiat de la font: ${sources[i].title}.`,
-  essayQuestion:essayQuestions[i].question,
-  correctionCriteria:['Precisió conceptual', 'Contextualització cronològica', 'Capacitat d’anàlisi', 'Estructura i llenguatge històric'],
-  recommendedTime:'90 minuts'
-}));
-
-export const rubrics: Rubric[] = [
-  {name:'Comentari de font',excellent:'Classifica, contextualitza, interpreta i valora conseqüències amb rigor.',notable:'Bona contextualització i anàlisi, amb alguna mancança menor.',pass:'Resposta correcta però superficial o poc argumentada.',fail:'Errors de classificació i manca d’interpretació històrica.'},
-  {name:'Pregunta de desenvolupament',excellent:'Estructura impecable, cronologia precisa i argumentació completa.',notable:'Bona estructura i contingut adequat amb lleus llacunes.',pass:'Contingut bàsic suficient però amb poca profunditat.',fail:'Desordre, errors greus i absència de balanç final.'},
-  {name:'Definició de conceptes',excellent:'Definició exacta, contextualitzada i aplicada en exemple.',notable:'Definició correcta amb context limitat.',pass:'Definició parcial però comprensible.',fail:'Definició errònia o fora de tema.'},
-  {name:'Simulacre complet',excellent:'Domini global del format PAU i gestió excel·lent del temps.',notable:'Rendiment alt i equilibrat en totes les parts.',pass:'Assolix mínims amb desequilibris entre apartats.',fail:'No arriba a les competències bàsiques exigides.'}
+La Pragmàtica Sanció (1830) permeté heretar a Isabel, filla de Ferran VII, en detriment de Carles Maria Isidre. Esta decisió convertí la successió en conflicte polític i ideològic. Quan el rei morí en 1833, l’enfrontament derivà en guerra civil carlina i obrí definitivament l’etapa de construcció liberal.`,
+    chronology: ['1814: restauració absolutista i anul·lació de la Constitució de 1812.', '1820: pronunciament de Riego.', '1820-1823: Trienni Liberal.', '1823: intervenció dels Cent Mil Fills de Sant Lluís.', '1823-1833: Dècada Ominosa.', '1830: Pragmàtica Sanció.', '1833: mort de Ferran VII i inici de la Primera Guerra Carlina.'],
+    keyConcepts: ['absolutisme', 'pronunciament', 'Trienni Liberal', 'Dècada Ominosa', 'Pragmàtica Sanció', 'carlisme'],
+    people: ['Ferran VII', 'Rafael del Riego', 'Carles Maria Isidre', 'Maria Cristina de Borbó', 'Lluís Antoni d’Angulema'],
+    pauQuestions: ['Perioditza i explica el regnat de Ferran VII.', 'Analitza causes i conseqüències del Trienni Liberal.', 'Relaciona qüestió successòria i origen del carlisme.'],
+    commonMistakes: ['Mesclar Trienni Liberal amb el Sexenni Democràtic.', 'No citar la intervenció francesa de 1823.', 'Ignorar la relació entre successió i guerra carlina.'],
+    answerOutline: ['Restauració de 1814', 'Crisi de l’absolutisme', 'Trienni Liberal i reformes', 'Reacció absolutista de 1823', 'Dècada Ominosa i balanç final']
+  }
 ];
 
-const responseTitles = ['Constitució de 1812','Estat liberal durant Isabel II','Restauració borbònica','Crisi de la Restauració','Reformes de la Segona República','Guerra Civil','Franquisme polític','Franquisme econòmic','Transició democràtica','Constitució de 1978'];
-export const responseModels: ResponseModel[] = responseTitles.map((title,i)=>({
-  title,
-  question:`Explica ${title} amb estructura PAU i valoració final.`,
-  outline:['Introducció contextualitzada','Desenvolupament per fases','Anàlisi crítica','Conclusió'],
-  answer:essayAnswer(title),
-  whyItWorks:['Ordena la cronologia amb claredat.', 'Integra conceptes i exemples.', 'Inclou comparacions i balanç final.'],
-  mistakesToAvoid:['Fer una llista de dades sense argumentar.', 'Confondre context amb conseqüències.', 'Oblidar la conclusió.']
-}));
+export const glossary: GlossaryItem[] = [
+  { term: 'Sobirania nacional', definition: 'Principi segons el qual el poder polític emana de la nació i no del dret diví del monarca.', period: 'Primer liberalisme (1808-1837)', relatedTopic: 'Corts de Cadis i Constitució de 1812', exampleUse: 'En PAU pots explicar que la Constitució de 1812 trasllada la legitimitat política a la nació.' },
+  { term: 'Antic Règim', definition: 'Sistema social i polític preliberal basat en monarquia absoluta, societat estamental i privilegis jurídics.', period: 'Fins a inicis del segle XIX', relatedTopic: 'Crisi de l’Antic Règim i Guerra del Francés', exampleUse: 'La invasió napoleònica accelera la crisi de l’Antic Règim a Espanya.' },
+  { term: 'Pronunciament', definition: 'Intervenció militar en política per forçar un canvi de govern o de règim.', period: 'Segle XIX', relatedTopic: 'Regnat de Ferran VII', exampleUse: 'El pronunciament de Riego (1820) inicia el Trienni Liberal.' },
+  { term: 'Guerrilla', definition: 'Forma de combat irregular, amb unitats petites i mobilitat alta contra un exèrcit ocupant.', period: 'Guerra del Francés', relatedTopic: 'Crisi de l’Antic Règim i Guerra del Francés', exampleUse: 'La guerrilla dificultà el control territorial de les tropes napoleòniques.' },
+  { term: 'Manifest dels Perses', definition: 'Text de 1814 signat per diputats absolutistes que reclamava restaurar el poder absolut de Ferran VII.', period: '1814', relatedTopic: 'Regnat de Ferran VII', exampleUse: 'S’utilitza per justificar la ruptura amb la Constitució de 1812.' }
+];
+
+const baseTopic = topics.map(t => t.title);
+export const testQuestions: TestQuestion[] = Array.from({ length: 15 }, (_, i) => ({ question: `Qüestió PAU ${i + 1}: identifica l’opció correcta sobre ${baseTopic[i % 3]}.`, options: ['Relaciona bé cronologia, actors i conseqüències', 'No hi hagué conflicte polític', 'El procés fou lineal i sense resistències', 'No tingué impacte institucional'], correctAnswer: 0, explanation: 'La resposta correcta integra causes, evolució i conseqüències reals del procés històric.', topic: baseTopic[i % 3], difficulty: i % 3 === 0 ? 'baixa' : i % 3 === 1 ? 'mitjana' : 'alta' }));
+
+export const essayQuestions: EssayQuestion[] = topics.map((t) => ({ question: `Desenvolupa el tema: ${t.title}.`, topic: t.title, outline: t.answerOutline, keyConcepts: t.keyConcepts, modelAnswer: t.explanation, commonMistakes: t.commonMistakes }));
+export const timelineActivities: TimelineActivity[] = topics.flatMap((t) => t.chronology.map((c) => ({ date: c.split(':')[0], title: t.title, description: c, period: t.period, category: 'política', relatedTopic: t.title, pauImportance: 'Data clau per ordenar una resposta de desenvolupament a PAU.' })));
+export const sources: Source[] = [];
+export const mockExams: MockExam[] = [{ title: 'Simulacre PAU', shortDefinitions: glossary.slice(0, 2).map(g => g.term), sourceCommentary: 'Comentari guiat de la Constitució de 1812', essayQuestion: essayQuestions[0].question, correctionCriteria: ['Precisió històrica', 'Cronologia', 'Anàlisi', 'Expressió escrita'], recommendedTime: '90 minuts' }];
+export const rubrics: Rubric[] = [{ name: 'Resposta de desenvolupament', excellent: 'Cronologia exacta, arguments coherents i balanç crític.', notable: 'Bona contextualització amb alguna llacuna menor.', pass: 'Contingut acceptable però poc aprofundit.', fail: 'Errors cronològics o conceptuals greus.' }];
+export const responseModels: ResponseModel[] = topics.map((t) => ({ title: t.title, question: `Model de resposta: ${t.title}`, outline: t.answerOutline, answer: t.explanation, whyItWorks: ['Contextualitza', 'Argumenta', 'Conclou amb balanç'], mistakesToAvoid: t.commonMistakes }));
