@@ -12,6 +12,7 @@ const MENU: Menu[] = ['inici', 'temari', 'cronologia', 'fonts-imatges', 'simulac
 
 export default function App() {
   const [menu, setMenu] = useState<Menu>('inici');
+  const [selectedTopicId, setSelectedTopicId] = useState<number | null>(null);
   const [done] = useState<number[]>(() => JSON.parse(localStorage.getItem('pau-progress') ?? '[]'));
   const [query, setQuery] = useState('');
   const [period, setPeriod] = useState('Tots');
@@ -46,6 +47,14 @@ export default function App() {
     { title: 'Simulacres PAU', target: 'simulacres' },
   ];
 
+  const openTopicFromHome = (topicId: number) => {
+    setSelectedTopicId(topicId);
+    setMenu('temari');
+    requestAnimationFrame(() => {
+      document.getElementById(`tema-${topicId}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
+
   return <div className="min-h-screen bg-stone-100 text-slate-800 text-[1.06rem] leading-8">
     <header className="bg-slate-900 text-stone-50 p-6 shadow-lg"><div className="max-w-6xl mx-auto"><p className="text-sm text-stone-300">Professor: MIQUEL GREGORI ESCRIVÀ · IES GREGORI MAIANS</p><h1 className="text-3xl font-bold">PAU Història d’Espanya</h1><p className="text-stone-200">Preparació per a 2n de Batxillerat · Comunitat Valenciana</p></div></header>
     <nav className="bg-white/95 backdrop-blur border-b sticky top-0 z-10"><ul className="max-w-6xl mx-auto flex flex-wrap gap-2 p-3">{MENU.map((item) => <li key={item}><button onClick={() => setMenu(item)} className={`px-3 py-2 rounded-xl text-sm font-medium ${menu === item ? 'bg-rose-800 text-white' : 'bg-slate-100 hover:bg-slate-200'}`}>{item}</button></li>)}</ul></nav>
@@ -68,11 +77,26 @@ export default function App() {
           ))}
         </div>
         <div className="grid md:grid-cols-2 gap-4"><ProgressCard progress={progress} /><SectionCard title="Repàs ràpid"><p>Continua estudiant des dels test, les fonts i els simulacres amb seguiment del progrés.</p></SectionCard></div>
+        <SectionCard title="Navega per temes">
+          <div className="grid md:grid-cols-2 gap-3">
+            {topics.map((topic) => (
+              <button
+                key={topic.id}
+                type="button"
+                onClick={() => openTopicFromHome(topic.id)}
+                className="rounded-xl border border-slate-200 bg-white p-3 text-left transition hover:border-rose-300 hover:bg-rose-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-700"
+              >
+                <p className="text-sm text-slate-500">{topic.period}</p>
+                <p className="font-semibold">{topic.title}</p>
+              </button>
+            ))}
+          </div>
+        </SectionCard>
         <SectionCard title="Mosaic visual per períodes"><ImageGallery items={mediaItems.slice(0,9)} /></SectionCard>
       </>}
       {menu === 'temari' && topics.map((t) => {
         const imgs = mediaItems.filter((m) => m.period === t.title || m.relatedTopic.toLowerCase().includes(t.title.toLowerCase()) || t.title.toLowerCase().includes(m.relatedTopic.toLowerCase())).slice(0, 4);
-        return <SectionCard key={t.id} title={t.title}><PeriodBadge period={t.period} /><p className="mt-2 whitespace-pre-wrap">{linkText(t.summary)}</p><div className="mt-4"><h4 className="font-semibold text-lg">Explicació desenvolupada</h4><p className="whitespace-pre-wrap mt-2">{linkText(t.explanation)}</p></div><div className="mt-4 rounded-xl border border-sky-200 bg-sky-50 p-4"><h4 className="font-semibold text-lg text-sky-900">{outlineStyles[(t.id - 1) % outlineStyles.length].title}</h4><ol className={`${outlineStyles[(t.id - 1) % outlineStyles.length].className} ml-6 mt-2`}>{t.answerOutline.map((item, i) => <li key={i}>{item}</li>)}</ol></div><div className="mt-4"><h4 className="font-semibold text-lg">Cronologia</h4><ul className="list-disc ml-6">{t.chronology.map((c, i) => <li key={i}>{linkText(c)} <a href={wikiSearchUrl(c)} target="_blank" rel="noreferrer" className="text-rose-700 underline underline-offset-2">(Viquipèdia)</a></li>)}</ul></div><div className="grid md:grid-cols-2 gap-3 mt-4"><div><h4 className="font-semibold text-lg">Conceptes clau</h4><div className="mt-2 flex flex-wrap gap-2">{t.keyConcepts.map((k, i) => <span key={i} className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-900">{k}</span>)}</div></div><div><h4 className="font-semibold text-lg">Personatges</h4><ul className="list-disc ml-6">{t.people.map((p, i) => <li key={i}>{p}</li>)}</ul></div></div><div className="mt-4"><h4 className="font-semibold text-lg">Preguntes PAU</h4><ul className="list-disc ml-6">{t.pauQuestions.map((q, i) => <li key={i}>{linkText(q)}</li>)}</ul></div><div className="mt-4"><h4 className="font-semibold text-lg">Model de resposta (aprox. 400 paraules)</h4><p className="whitespace-pre-wrap mt-2">{linkText(responseModels.find((r) => r.title === t.title)?.answer ?? "")}</p></div>{imgs[0] && <SafeImage src={imgs[0].imageUrl} alt={imgs[0].altText} className="w-full max-h-[30rem] object-contain rounded-xl bg-stone-100 mt-4" />}<ImageGallery items={imgs} /></SectionCard>;
+        return <div key={t.id} id={`tema-${t.id}`} className={selectedTopicId === t.id ? 'scroll-mt-24' : undefined}><SectionCard title={t.title}><PeriodBadge period={t.period} /><p className="mt-2 whitespace-pre-wrap">{linkText(t.summary)}</p><div className="mt-4"><h4 className="font-semibold text-lg">Explicació desenvolupada</h4><p className="whitespace-pre-wrap mt-2">{linkText(t.explanation)}</p></div><div className="mt-4 rounded-xl border border-sky-200 bg-sky-50 p-4"><h4 className="font-semibold text-lg text-sky-900">{outlineStyles[(t.id - 1) % outlineStyles.length].title}</h4><ol className={`${outlineStyles[(t.id - 1) % outlineStyles.length].className} ml-6 mt-2`}>{t.answerOutline.map((item, i) => <li key={i}>{item}</li>)}</ol></div><div className="mt-4"><h4 className="font-semibold text-lg">Cronologia</h4><ul className="list-disc ml-6">{t.chronology.map((c, i) => <li key={i}>{linkText(c)} <a href={wikiSearchUrl(c)} target="_blank" rel="noreferrer" className="text-rose-700 underline underline-offset-2">(Viquipèdia)</a></li>)}</ul></div><div className="grid md:grid-cols-2 gap-3 mt-4"><div><h4 className="font-semibold text-lg">Conceptes clau</h4><div className="mt-2 flex flex-wrap gap-2">{t.keyConcepts.map((k, i) => <span key={i} className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-900">{k}</span>)}</div></div><div><h4 className="font-semibold text-lg">Personatges</h4><ul className="list-disc ml-6">{t.people.map((p, i) => <li key={i}>{p}</li>)}</ul></div></div><div className="mt-4"><h4 className="font-semibold text-lg">Preguntes PAU</h4><ul className="list-disc ml-6">{t.pauQuestions.map((q, i) => <li key={i}>{linkText(q)}</li>)}</ul></div><div className="mt-4"><h4 className="font-semibold text-lg">Model de resposta (aprox. 400 paraules)</h4><p className="whitespace-pre-wrap mt-2">{linkText(responseModels.find((r) => r.title === t.title)?.answer ?? "")}</p></div>{imgs[0] && <SafeImage src={imgs[0].imageUrl} alt={imgs[0].altText} className="w-full max-h-[30rem] object-contain rounded-xl bg-stone-100 mt-4" />}<ImageGallery items={imgs} /></SectionCard></div>;
       })}
       {menu === 'cronologia' && timelineActivities.slice(0, 20).map((a, i) => <TimelineEventCard key={i} date={a.date} title={a.title} description={a.description} wikiUrl={wikiSearchUrl(a.description)} />)}
       {menu === 'fonts-imatges' && <>
