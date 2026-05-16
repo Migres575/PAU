@@ -1,60 +1,50 @@
 import { useMemo, useState } from 'react';
 import SectionCard from './components/SectionCard';
 import { essayQuestions, glossary, mockExams, responseModels, rubrics, sources, testQuestions, timelineActivities, topics } from './data/content';
+import { mediaItems } from './data/media';
+import { historicalSources } from './data/sources';
+import { visualActivities } from './data/visualActivities';
+import { FilterPanel, ImageGallery, PeriodBadge, ProgressCard, SearchBar, SourceCard, SourceViewer, TimelineEventCard, TopicHero, VisualActivityCard } from './components/ui';
 
-type Menu = 'inici' | 'temes' | 'fonts' | 'glossari' | 'test' | 'assaig' | 'cronologia' | 'simulacres' | 'rubriques' | 'models';
-const MENU: Menu[] = ['inici', 'temes', 'fonts', 'glossari', 'test', 'assaig', 'cronologia', 'simulacres', 'rubriques', 'models'];
+type Menu = 'inici' | 'temari' | 'cronologia' | 'fonts-imatges' | 'simulacres' | 'glossari' | 'activitats';
+const MENU: Menu[] = ['inici', 'temari', 'cronologia', 'fonts-imatges', 'simulacres', 'glossari', 'activitats'];
 
 export default function App() {
   const [menu, setMenu] = useState<Menu>('inici');
   const [done, setDone] = useState<number[]>(() => JSON.parse(localStorage.getItem('pau-progress') ?? '[]'));
+  const [query, setQuery] = useState('');
+  const [period, setPeriod] = useState('Tots');
   const progress = useMemo(() => Math.round((done.length / testQuestions.length) * 100), [done.length]);
+  const periods = ['Tots', ...Array.from(new Set(mediaItems.map((m) => m.period)))];
 
-  return <div className="min-h-screen bg-slate-50 text-slate-800">
-    <header className="bg-sky-700 text-white p-6 shadow"><h1 className="text-2xl font-bold">PAU Història d'Espanya · 2n Batxillerat</h1></header>
-    <nav className="bg-white border-b sticky top-0 z-10"><ul className="max-w-6xl mx-auto flex flex-wrap gap-2 p-3">{MENU.map((item) => <li key={item}><button onClick={() => setMenu(item)} className={`px-3 py-2 rounded-lg text-sm ${menu === item ? 'bg-sky-700 text-white' : 'bg-slate-100'}`}>{item.toUpperCase()}</button></li>)}</ul></nav>
+  const filteredSources = historicalSources.filter((s) => (period === 'Tots' || s.period === period) && `${s.title} ${s.historicalContext}`.toLowerCase().includes(query.toLowerCase()));
+  const filteredMedia = mediaItems.filter((m) => (period === 'Tots' || m.period === period) && `${m.title} ${m.description}`.toLowerCase().includes(query.toLowerCase()));
+
+  return <div className="min-h-screen bg-stone-100 text-slate-800">
+    <header className="bg-slate-900 text-stone-50 p-6 shadow-lg"><div className="max-w-6xl mx-auto"><h1 className="text-3xl font-bold">PAU Història d’Espanya</h1><p className="text-stone-200">Preparació per a 2n de Batxillerat · Comunitat Valenciana</p></div></header>
+    <nav className="bg-white/95 backdrop-blur border-b sticky top-0 z-10"><ul className="max-w-6xl mx-auto flex flex-wrap gap-2 p-3">{MENU.map((item) => <li key={item}><button onClick={() => setMenu(item)} className={`px-3 py-2 rounded-xl text-sm font-medium ${menu === item ? 'bg-rose-800 text-white' : 'bg-slate-100 hover:bg-slate-200'}`}>{item}</button></li>)}</ul></nav>
     <main className="max-w-6xl mx-auto p-4 space-y-4">
       {menu === 'inici' && <>
-        <SectionCard title="Panell general">
-          <p>Temes: {topics.length} · Fonts: {sources.length} · Glossari: {glossary.length} · Test: {testQuestions.length} · Simulacres: {mockExams.length}</p>
-          <p className="mt-2">Progrés test: <strong>{progress}%</strong> ({done.length}/{testQuestions.length})</p>
-        </SectionCard>
+        <TopicHero title="PAU Història d’Espanya" subtitle="Preparació guiada, fonts primàries i pràctica visual" imageUrl={mediaItems[0].imageUrl} />
+        <div className="grid md:grid-cols-3 gap-4">
+          {['Temari','Cronologia','Fonts històriques','Comentari de fonts','Glossari','Simulacres PAU'].map((x) => <SectionCard key={x} title={x}><p>Accés ràpid a {x.toLowerCase()}.</p></SectionCard>)}
+        </div>
+        <div className="grid md:grid-cols-2 gap-4"><ProgressCard progress={progress} /><SectionCard title="Repàs ràpid"><p>Continua estudiant des dels test, les fonts i els simulacres amb seguiment del progrés.</p></SectionCard></div>
+        <SectionCard title="Mosaic visual per períodes"><ImageGallery items={mediaItems.slice(0,9)} /></SectionCard>
       </>}
-
-      {menu === 'temes' && topics.map(t => <SectionCard key={t.id} title={`${t.title} (${t.period})`}>
-        <pre className="whitespace-pre-wrap text-sm">{t.summary}</pre>
-        <pre className="whitespace-pre-wrap mt-2 text-sm">{t.explanation}</pre>
-        <p className="mt-2"><strong>Cronologia:</strong> {t.chronology.join(' · ')}</p>
-        <p><strong>Conceptes:</strong> {t.keyConcepts.join(', ')}</p>
-        <p><strong>Personatges:</strong> {t.people.join(', ')}</p>
-        <ul className="list-disc ml-5"><strong>Preguntes PAU:</strong>{t.pauQuestions.map((q, i) => <li key={i}>{q}</li>)}</ul>
-      </SectionCard>)}
-
-      {menu === 'fonts' && sources.map((s, i) => <SectionCard key={i} title={`${s.title} (${s.date})`}>
-        <p><strong>Tipus:</strong> {s.type} · <strong>Naturalesa:</strong> {s.nature} · <strong>Autor:</strong> {s.author}</p>
-        <p className="mt-2">{s.context}</p><p className="italic mt-2">{s.excerpt}</p>
-        <ul className="list-disc ml-5 mt-2">{s.mainIdeas.map((m, j) => <li key={j}>{m}</li>)}</ul>
-        <p className="mt-2"><strong>Pregunta PAU:</strong> {s.pauQuestion}</p>
-        <p className="mt-2 text-sm">{s.modelAnswer}</p>
-      </SectionCard>)}
-
-      {menu === 'glossari' && <SectionCard title={`Glossari (${glossary.length})`}><div className="grid md:grid-cols-2 gap-3">{glossary.map((g, i) => <div key={i}><p><strong>{g.term}</strong>: {g.definition}</p><p className="text-xs">{g.period} · {g.relatedTopic}</p></div>)}</div></SectionCard>}
-
-      {menu === 'test' && <SectionCard title={`Test (${testQuestions.length})`}>{testQuestions.map((q, i) => <div key={i} className="border rounded p-2 mb-2">
-        <p><strong>{i + 1}.</strong> {q.question}</p>
-        <p className="text-xs">{q.topic} · {q.difficulty}</p>
-        <button className="mt-1 px-2 py-1 bg-sky-100 rounded" onClick={() => {
-          const id = i + 1; const updated = done.includes(id) ? done.filter(v => v !== id) : [...done, id]; setDone(updated); localStorage.setItem('pau-progress', JSON.stringify(updated));
-        }}>{done.includes(i + 1) ? 'Pendent' : 'Fet'}</button>
-      </div>)}</SectionCard>}
-
-      {menu === 'assaig' && <SectionCard title={`Desenvolupament (${essayQuestions.length})`}><ol className="list-decimal ml-5">{essayQuestions.map((q, i) => <li key={i} className="mb-2"><strong>{q.question}</strong><p className="text-sm">Tema: {q.topic}</p><p className="text-sm">Esquema: {q.outline.join(' · ')}</p></li>)}</ol></SectionCard>}
-
-      {menu === 'cronologia' && timelineActivities.map((a, i) => <SectionCard key={i} title={`${a.date} · ${a.title}`}><p>{a.description}</p><p className="text-xs mt-1">{a.period} · {a.category} · {a.relatedTopic}</p></SectionCard>)}
-
-      {menu === 'simulacres' && <SectionCard title={`Simulacres (${mockExams.length})`}><ul>{mockExams.map((m, i) => <li key={i} className="mb-2"><strong>{m.title}</strong> · Definicions: {m.shortDefinitions.join(', ')} · Font: {m.sourceCommentary} · Temps: {m.recommendedTime}</li>)}</ul></SectionCard>}
-      {menu === 'rubriques' && <SectionCard title="Rúbriques">{rubrics.map((r, i) => <div key={i} className="mb-2"><strong>{r.name}</strong><p className="text-sm">Excel·lent: {r.excellent}</p></div>)}</SectionCard>}
-      {menu === 'models' && <SectionCard title={`Models de resposta (${responseModels.length})`}>{responseModels.map((m, i) => <div key={i} className="mb-3"><h3 className="font-semibold">{m.title}</h3><p className="text-sm">{m.question}</p><p className="text-sm">{m.answer.slice(0, 350)}...</p></div>)}</SectionCard>}
+      {menu === 'temari' && topics.map((t) => {
+        const imgs = mediaItems.filter((m) => m.relatedTopic.toLowerCase().includes(t.title.split(' ')[0].toLowerCase()) || m.period.includes(t.title.split(' ')[0])).slice(0, 4);
+        return <SectionCard key={t.id} title={t.title}><PeriodBadge period={t.period} /><p className="mt-2 text-sm whitespace-pre-wrap">{t.summary}</p>{imgs[0] && <img src={imgs[0].imageUrl} alt={imgs[0].altText} className="w-full h-56 object-cover rounded-xl mt-3" />}<p className="mt-2 text-sm">Ús PAU: identifica autor, data, context i relació amb el canvi polític del període.</p><ImageGallery items={imgs} /></SectionCard>;
+      })}
+      {menu === 'cronologia' && timelineActivities.slice(0, 20).map((a, i) => <TimelineEventCard key={i} date={a.date} title={a.title} description={a.description} imageUrl={mediaItems[i % mediaItems.length]?.imageUrl} />)}
+      {menu === 'fonts-imatges' && <>
+        <div className="grid md:grid-cols-3 gap-3"><SearchBar value={query} onChange={setQuery} /><FilterPanel options={periods} value={period} onChange={setPeriod} /></div>
+        <SectionCard title="Fonts històriques">{filteredSources.slice(0, 25).map((s) => <div key={s.id} className="mb-3"><SourceCard source={s} /><SourceViewer source={s} /></div>)}</SectionCard>
+        <SectionCard title="Imatges històriques"><ImageGallery items={filteredMedia} /></SectionCard>
+      </>}
+      {menu === 'simulacres' && <SectionCard title="Simulador PAU millorat"><ul className="list-disc ml-5">{mockExams.map((m, i) => <li key={i}><strong>{m.title}</strong>: font escrita ({sources[i % sources.length].title}), imatge ({mediaItems[i % mediaItems.length].title}), desenvolupament ({essayQuestions[i % essayQuestions.length].question}), dues definicions ({m.shortDefinitions.join(', ')}), rúbrica ({rubrics[0].name}).</li>)}</ul></SectionCard>}
+      {menu === 'glossari' && <SectionCard title="Glossari"><div className="grid md:grid-cols-2 gap-3">{glossary.slice(0, 40).map((g, i) => <p key={i}><strong>{g.term}</strong>: {g.definition}</p>)}</div></SectionCard>}
+      {menu === 'activitats' && <div className="grid md:grid-cols-2 gap-4">{visualActivities.map((v) => <VisualActivityCard key={v.id} activity={v} />)}</div>}
     </main>
   </div>;
 }
