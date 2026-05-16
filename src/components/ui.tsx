@@ -13,4 +13,16 @@ export const SourceCard = ({ source }: { source: HistoricalSource }) => <article
 export const SourceViewer = ({ source }: { source: HistoricalSource }) => <div className="card space-y-3">{source.relatedImageUrl && <SafeImage src={source.relatedImageUrl} alt={source.title} className="w-full h-56 rounded-lg bg-stone-100 object-contain" />}<p className="text-sm whitespace-pre-wrap">{source.historicalContext}</p><blockquote className="border-l-4 border-amber-400 bg-amber-50 p-3 italic text-sm">{source.excerpt}</blockquote><div><h4 className="font-semibold">Idees principals</h4><ul className="list-disc ml-5 text-sm mt-1">{source.mainIdeas.map((m, i) => <li key={i}>{m}</li>)}</ul></div><div><h4 className="font-semibold">Preguntes de comentari</h4><ul className="list-disc ml-5 text-sm mt-1">{source.commentaryQuestions.map((q, i) => <li key={i}>{q}</li>)}</ul></div><details><summary className="cursor-pointer font-semibold text-rose-800">Veure model de comentari</summary><p className="text-sm mt-2 whitespace-pre-wrap">{source.modelCommentary}</p></details><p className="text-sm"><strong>Ús PAU:</strong> {source.pauUse}</p><p className="text-xs text-slate-500">Dificultat: {source.difficulty}</p></div>;
 export const VisualActivityCard = ({ activity }: { activity: VisualActivity }) => <article className="card"><h4 className="font-semibold">{activity.title}</h4><p className="text-xs">{activity.period} · {activity.difficulty}</p><SafeImage src={activity.imageUrl} alt={activity.title} className="mt-2 h-40 w-full rounded bg-stone-100 object-contain"/><ul className="list-disc ml-5 text-sm mt-2">{activity.questions.map((q, i) => <li key={i}>{q}</li>)}</ul></article>;
 export const TimelineEventCard = ({ date, title, description, imageUrl }: { date: string; title: string; description: string; imageUrl?: string }) => <article className="card"><div className="flex gap-3">{imageUrl && <SafeImage src={imageUrl} alt={title} className="w-20 h-20 rounded bg-stone-100 object-contain"/>}<div><p className="text-xs text-slate-500">{date}</p><h4 className="font-semibold">{title}</h4><p className="text-sm">{description}</p></div></div></article>;
-export const TopicHero = ({ title, subtitle, imageUrl }: { title: string; subtitle: string; imageUrl?: string }) => <section className="card bg-gradient-to-r from-sky-900 to-rose-900 text-white"><h2 className="text-2xl font-bold">{title}</h2><p className="opacity-90">{subtitle}</p>{imageUrl && <SafeImage src={imageUrl} alt={title} className="w-full mt-4 h-56 rounded-lg bg-stone-100 object-contain"/>}</section>;
+export const TopicHero = ({ title, subtitle, imageUrl }: { title: string; subtitle: string; imageUrl?: string }) => (
+  <section className="card overflow-hidden bg-gradient-to-r from-sky-900 to-rose-900 text-white">
+    <h2 className="text-2xl font-bold">{title}</h2>
+    <p className="opacity-90">{subtitle}</p>
+    {imageUrl && (
+      <SafeImage
+        src={imageUrl}
+        alt={title}
+        className="relative left-1/2 mt-4 h-64 w-screen max-w-none -translate-x-1/2 bg-stone-100 object-cover md:h-80"
+      />
+    )}
+  </section>
+);
