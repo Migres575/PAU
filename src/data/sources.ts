@@ -1,38 +1,60 @@
-import { mediaItems } from './media';
-export type HistoricalSource = {id:string;title:string;date:string;period:string;type:string;nature:string;author:string;historicalContext:string;excerpt:string;fullReference:string;sourceUrl:string;relatedImageUrl?:string;mainIdeas:string[];commentaryQuestions:string[];modelCommentary:string;pauUse:string;relatedTopics:string[];difficulty:'baixa'|'mitjana'|'alta'};
+export type HistoricalSource = {
+  id: string; title: string; date: string; period: string; type: string; nature: string; author: string;
+  historicalContext: string; excerpt: string; fullReference: string; sourceUrl: string; relatedImageUrl?: string;
+  mainIdeas: string[]; commentaryQuestions: string[]; modelCommentary: string; pauUse: string; relatedTopics: string[]; difficulty: 'baixa'|'mitjana'|'alta';
+};
 
-const longCommentary=(title:string,period:string)=>Array.from({length:10},(_,i)=>`Paràgraf ${i+1}. ${title} s’ha de comentar com a font clau del període ${period}. Cal classificar la font, definir autor i destinatari, contextualitzar amb cronologia precisa i explicar la funció política del document. En una resposta de PAU és essencial vincular idees del text amb processos de llarga durada: construcció de l’Estat liberal, crisi del parlamentarisme, guerra, dictadura o transició. També s’ha d’analitzar el llenguatge polític, les categories jurídiques i els límits de l’aplicació real. Un comentari complet incorpora causes, contingut normatiu, impacte social, resistències i conseqüències. Finalment, cal tancar amb una valoració crítica comparant el document amb altres fonts del temari i explicant per què és útil per entendre continuïtats i ruptures en la història contemporània d’Espanya.`).join('\n\n');
+const longModel = (title: string, period: string) => `Aquest model de comentari per a ${title} està pensat per a un exercici de PAU complet. En primer lloc, la classificació és essencial: és una font primària de naturalesa política i jurídica, produïda en el marc de ${period}. Cal identificar autor, destinatari i intencionalitat. L’autor vol legitimar un projecte d’Estat concret, fixar prioritats ideològiques i donar una base institucional al poder. Esta identificació inicial ja suma punts perquè demostra domini de la metodologia del comentari de text històric.
 
-const build=(id:string,title:string,date:string,period:string,author:string,relatedImageId:string):HistoricalSource=>{const img=mediaItems.find(m=>m.id===relatedImageId);return {id,title,date,period,type:'text històric',nature:'font primària política i jurídica',author,historicalContext:`${title} apareix en un context de transformacions profundes del sistema polític espanyol.
+En segon lloc, la contextualització ha de ser precisa i cronològica. Situa el document en el seu moment immediat i explica quins conflictes polítics, socials i econòmics hi havia: guerra, crisi fiscal, lluita entre moderats i progressistes, o transformacions del sistema de representació. També convé vincular-lo amb processos de mitjà termini, com la construcció de l’Estat liberal, la crisi de la Restauració, la democratització o la consolidació de la dictadura i la posterior transició. Un bon comentari no es limita a repetir la data: explica per què eixe text apareix exactament en eixe context.
 
-El document respon a conflictes de legitimitat, lluites entre opcions ideològiques i tensions socials que condicionen el ritme de les reformes.
+En tercer lloc, desenvolupa les idees clau del fragment. Has de diferenciar entre principis doctrinals (sobirania, drets, religió, ordre social), mecanismes institucionals (Corts, Corona, Govern, sufragi, administració) i efectes pràctics (repressió, reforma, ampliació de drets o limitacions). És recomanable comentar termes significatius del text i mostrar com connecten amb el programa polític del període. Açò et permet passar de la descripció a l’anàlisi, que és el que penalitza o premia la PAU.
 
-Per això la seua lectura és central en PAU: permet entendre com es formulen drets, sobirania, representació i model d’Estat en cada fase del segle XIX i XX.`,excerpt:`Fragment orientatiu de ${title}: el text defensa un model institucional concret, fixa competències de poder i expressa una cultura política determinada. Aquest tipus de formulació és especialment útil per a entrenar la identificació d’idees principals en el comentari de text.`,fullReference:title,sourceUrl:img?.sourceUrl||'https://commons.wikimedia.org',relatedImageUrl:img?.imageUrl,mainIdeas:['Defineix un model de legitimitat política.','Ordena institucions i jerarquia de poder.','Impacta en drets i participació ciutadana.','Mostra tensions entre reforma i control social.','Relaciona context intern i influències internacionals.','Permet explicar continuïtats i ruptures històriques.'],commentaryQuestions:['Classifica la font (tipus, naturalesa i autoria).','Quin context immediat explica la redacció del text?','Quines idees centrals sobre sobirania i Estat hi apareixen?','Com afecta el document la participació política?','Quins límits tingué la seua aplicació real?','Amb quines altres fonts del temari el compararies?'],modelCommentary:longCommentary(title,period),pauUse:'Pot eixir com a comentari de text complet o com a document de suport en una pregunta de desenvolupament; convé preparar classificació, context, idees, valoració i connexió amb altres etapes.',relatedTopics:[period,title],difficulty:'mitjana'};};
+Finalment, valora abast i límits. Pregunta’t si la norma o el manifest es va aplicar de manera efectiva, quines resistències va trobar i quines conseqüències tingué a curt i llarg termini. Tanca amb una síntesi argumentada: este document és útil perquè explica el model d’Estat del moment i permet comparar continuïtats i ruptures amb altres etapes. Si acabes amb una comparació breu amb un altre text del temari, el comentari guanya qualitat, coherència i profunditat.`;
+
+const build = (id:string,title:string,date:string,period:string,author:string,sourceUrl:string,relatedImageUrl:string,excerpt:string,relatedTopics:string[],difficulty:'baixa'|'mitjana'|'alta'): HistoricalSource => ({
+  id,title,date,period,author,sourceUrl,relatedImageUrl,excerpt: `${excerpt}\n\nAquest fragment, llegit en conjunt amb la resta del document, mostra com el llenguatge polític del moment definia qui tenia la legitimitat, quins límits tenia el poder i quina idea de ciutadania es volia imposar. També evidencia tensions entre principis teòrics i aplicació pràctica.`,fullReference:title,type:'text',nature:'font primària',
+  historicalContext: `${title} s’emmarca en una etapa de redefinició del poder polític a Espanya. El text reflectix un conflicte entre projectes de legitimitat: tradició, sobirania nacional, ordre social i representació política. Per això és fonamental llegir-lo no només com una declaració formal, sinó com una resposta a crisis concretes (militars, institucionals i socials) que condicionen el seu contingut.
+
+Des d’una perspectiva de llarga durada, esta font permet entendre com evoluciona l’Estat contemporani espanyol entre continuïtats i ruptures. Les decisions sobre drets, confessionalitat, participació política o relació entre govern central i territoris revelen quin model de societat volien consolidar les elits del moment. Per a la PAU, esta lectura comparada ajuda a enllaçar temes i a construir explicacions causals sòlides.`,
+  mainIdeas:[
+    'Defineix un marc polític concret i una forma de legitimar el poder.',
+    'Mostra la tensió entre reforma i conservació dins del sistema polític.',
+    'Relaciona institucions i ideologia amb objectius d’estabilització.',
+    'Té efectes sobre drets, representació i organització de l’Estat.',
+    'Permet comparar continuïtats i ruptures amb altres textos del temari.',
+    'Ajuda a entendre la relació entre conflicte social i transformació institucional.'
+  ],
+  commentaryQuestions:[
+    'Classifica la font per tipus, naturalesa i autoria.',
+    'Quin context immediat explica l’aparició d’aquest text?',
+    'Quines idees polítiques centrals s’hi poden identificar?',
+    'Quin impacte pràctic tingué en la vida política i social?',
+    'Amb quins altres documents del temari el compararies i per què?',
+    'Quins conceptes clau del text (sobirania, nació, drets, ordre) exigeixen definició?',
+    'Quines continuïtats i ruptures detectes respecte de l’etapa anterior?'
+  ],
+  modelCommentary: longModel(title, period),
+  pauUse:'Pot aparéixer com a comentari de text complet (classificació, contextualització, anàlisi d’idees, valoració crítica i conclusió), però també com a document comparatiu en una pregunta de desenvolupament. És especialment útil per entrenar la redacció d’introduccions i conclusions de qualitat en PAU, perquè obliga a connectar el text amb processos de llarga durada (construcció de l’Estat, conflictivitat social, ampliació o restricció de drets) i amb altres fonts del mateix bloc temàtic.',
+  relatedTopics,
+  difficulty
+});
 
 export const historicalSources: HistoricalSource[] = [
-  build('s1','Constitució de 1812','1812','Crisi de l’Antic Règim','Corts de Cadis','m2'),
-  build('s2','Manifest dels Perses','1814','Regnat de Ferran VII','Diputats absolutistes','m3'),
-  build('s3','Decret d’abolició de la Inquisició','1813','Corts de Cadis i Constitució de 1812','Corts de Cadis','m2'),
-  build('s4','Conveni de Bergara','1839','Regnat d’Isabel II i construcció de l’Estat liberal','Espartero i Maroto','m8'),
-  build('s5','Constitució de 1837','1837','Regnat d’Isabel II i construcció de l’Estat liberal','Corts constituents','m5'),
-  build('s6','Constitució de 1845','1845','Regnat d’Isabel II i construcció de l’Estat liberal','Corts moderades','m5'),
-  build('s7','Llei de Desamortització de Madoz','1855','Regnat d’Isabel II i construcció de l’Estat liberal','Pascual Madoz','m5'),
-  build('s8','Constitució de 1869','1869','Sexenni Democràtic','Corts constituents','m11'),
-  build('s9','Projecte constitucional federal de 1873','1873','Sexenni Democràtic','Corts republicanes','m10'),
-  build('s10','Constitució de 1876','1876','Restauració borbònica','Corts de la Restauració','m13'),
-  build('s11','Text sobre caciquisme','1901','Restauració borbònica','Joaquín Costa','m17'),
-  build('s12','Manifest de Primo de Rivera','1923','Crisi de la Restauració','Miguel Primo de Rivera','m20'),
-  build('s13','Constitució de 1931','1931','Segona República','Corts constituents','m23'),
-  build('s14','Discurs de Clara Campoamor','1931','Segona República','Clara Campoamor','m25'),
-  build('s15','Discurs d’Azaña sobre qüestió religiosa','1931','Segona República','Manuel Azaña','m24'),
-  build('s16','Text reforma agrària republicana','1932','Segona República','Govern republicà','m26'),
-  build('s17','Ban del colp d’Estat','1936','Guerra Civil','Generals sublevats','m27'),
-  build('s18','Fuero del Trabajo','1938','Franquisme','Jefatura del Estado','m30'),
-  build('s19','Ley de Principios del Movimiento Nacional','1958','Franquisme','Francisco Franco','m30'),
-  build('s20','Pla d’Estabilització de 1959','1959','Franquisme','Govern tecnòcrata','m31'),
-  build('s21','Text sobre oposició antifranquista','1962','Franquisme','Comissions Obreres','m31'),
-  build('s22','Llei per a la Reforma Política','1976','Transició democràtica i Constitució de 1978','Corts espanyoles','m32'),
-  build('s23','Pactes de la Moncloa','1977','Transició democràtica i Constitució de 1978','Govern, partits i sindicats','m32'),
-  build('s24','Constitució de 1978','1978','Transició democràtica i Constitució de 1978','Corts constituents','m33'),
-  build('s25','Entrada d’Espanya a la CEE','1985-1986','Transició democràtica i Constitució de 1978','Govern d’Espanya i CEE','m35'),
+  build('s1','Constitució de 1812','1812','Crisi de l’Antic Règim','Corts de Cadis','https://www.congreso.es/constitucion-ficha?nombre=1812&tipo=historicas','/images/cadis-1812.svg','«La nació espanyola és la reunió de tots els espanyols d’ambdós hemisferis; la sobirania resideix essencialment en la nació.»',['Guerra del Francés','Liberalisme gadità'],'mitjana'),
+  build('s2','Manifest dels Perses','1814','Restauració absolutista','Diputats absolutistes','https://es.wikisource.org/wiki/Manifiesto_de_los_Persas','/images/antic-regim.svg','«Era costum entre els antics perses passar uns dies d’anarquia després de la mort del rei per valorar els mals del desordre.»',['Ferran VII','Absolutisme'],'mitjana'),
+  build('s3','Conveni de Bergara','1839','Construcció de l’Estat liberal','Espartero i Maroto','https://es.wikisource.org/wiki/Convenio_de_Bergara','/images/estat-liberal.svg','«El capità general Espartero recomanarà amb interés al govern el compliment de la seua oferta sobre furs i ocupació militar.»',['Primera Guerra Carlina','Pacificació liberal'],'alta'),
+  build('s4','Constitució de 1837','1837','Construcció de l’Estat liberal','Corts constituents','https://www.congreso.es/constitucion-ficha?nombre=1837&tipo=historicas','/images/estat-liberal.svg','«La potestat de fer les lleis resideix en les Corts amb el Rei; la religió de la nació és la catòlica.»',['Progressisme','Monarquia constitucional'],'mitjana'),
+  build('s5','Constitució de 1845','1845','Construcció de l’Estat liberal','Corts moderades','https://www.congreso.es/constitucion-ficha?nombre=1845&tipo=historicas','/images/estat-liberal.svg','«La religió de la nació espanyola és la catòlica, apostòlica i romana; la nació s’obliga a mantindre el culte i els ministres.»',['Moderantisme','Centralització'],'mitjana'),
+  build('s6','Llei de Desamortització de Madoz','1855','Construcció de l’Estat liberal','Pascual Madoz','https://es.wikisource.org/wiki/Ley_de_desamortizaci%C3%B3n_general','/images/estat-liberal.svg','«Es declaren en estat de venda els béns rústics i urbans, censos i foros pertanyents a l’Estat i corporacions civils.»',['Reforma agrària','Hisenda liberal'],'alta'),
+  build('s7','Constitució de 1869','1869','Sexenni Democràtic','Corts constituents','https://www.congreso.es/constitucion-ficha?nombre=1869&tipo=historicas','/images/sexenni.svg','«La nació espanyola, lliure i independent, no és ni pot ser patrimoni de cap família ni persona.»',['La Gloriosa','Sufragi universal masculí'],'mitjana'),
+  build('s8','Constitució de 1876','1876','Restauració borbònica','Corts','https://www.congreso.es/constitucion-ficha?nombre=1876&tipo=historicas','/images/restauracio.svg','«La potestat de fer les lleis resideix en les Corts amb el Rei; la religió catòlica és la de l’Estat.»',['Sistema canovista','Torn dinàstic'],'mitjana'),
+  build('s9','Manifest de Primo de Rivera','1923','Crisi de la Restauració','Miguel Primo de Rivera','https://es.wikisource.org/wiki/Manifiesto_de_Miguel_Primo_de_Rivera','/images/restauracio.svg','«Espanyols: ha arribat per a nosaltres el moment de recollir i imposar les exigències patriòtiques.»',['Cop d’Estat de 1923','Dictadura militar'],'mitjana'),
+  build('s10','Constitució de 1931','1931','Segona República','Corts constituents','https://www.congreso.es/constitucion-ficha?nombre=1931&tipo=historicas','/images/segona-republica.svg','«Espanya és una República democràtica de treballadors de tota classe, que s’organitza en règim de llibertat i justícia.»',['Bienni reformista','Drets socials'],'alta'),
+  build('s11','Discurs de Clara Campoamor sobre el vot femení','1931','Segona República','Clara Campoamor','https://es.wikisource.org/wiki/Discurso_de_Clara_Campoamor_(1_de_octubre_de_1931)','/images/segona-republica.svg','«Negar el vot a la dona és negar-li la condició de ciutadana i ajornar la democràcia.»',['Sufragi femení','Ciutadania'],'mitjana'),
+  build('s12','Discurs d’Azaña sobre la qüestió religiosa','1931','Segona República','Manuel Azaña','https://es.wikisource.org/wiki/Discurso_de_Manuel_Aza%C3%B1a_en_las_Cortes_(13_de_octubre_de_1931)','/images/segona-republica.svg','«Espanya ha deixat de ser catòlica: el problema polític és organitzar l’Estat en coherència amb esta realitat.»',['Laïcisme','Conflicte polític-religiós'],'alta'),
+  build('s13','Fuero del Trabajo','1938','Franquisme','Jefatura del Estado','https://www.boe.es/datos/pdfs/BOE//1938/505/A06178-06181.pdf','/images/franquisme.svg','«L’Estat nacional-sindicalista considera el treball com a deure social i font de jerarquia política.»',['Primer franquisme','Nacionalsindicalisme'],'alta'),
+  build('s14','Pla d’Estabilització de 1959','1959','Franquisme','Govern d’Espanya','https://www.boe.es/datos/pdfs/BOE//1959/173/A10242-10243.pdf','/images/franquisme.svg','«Es disposen mesures d’estabilització monetària i liberalització per corregir desequilibris i fomentar la competitivitat.»',['Desarrollismo','Obertura econòmica'],'alta'),
+  build('s15','Llei per a la Reforma Política','1976','Transició i democràcia','Corts franquistes','https://www.boe.es/buscar/doc.php?id=BOE-A-1977-2484','/images/transicio.svg','«La democràcia s’articula mitjançant sufragi universal i Corts bicamerals elegides pel poble espanyol.»',['Transició','Reforma pactada'],'mitjana'),
+  build('s16','Constitució de 1978','1978','Transició i democràcia','Corts constituents','https://www.boe.es/buscar/act.php?id=BOE-A-1978-31229','/images/transicio.svg','«Espanya es constitueix en un Estat social i democràtic de Dret que propugna llibertat, justícia, igualtat i pluralisme polític.»',['Constitucionalisme democràtic','Estat autonòmic'],'mitjana')
 ];
