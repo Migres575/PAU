@@ -1,101 +1,138 @@
 export type Topic = {
   id: number;
-  titol: string;
-  periode: string;
-  resumInicial: string;
-  explicacio: string;
-  cronologia: string[];
-  conceptesClau: string[];
-  personatges: string[];
-  fontsRelacionades: string[];
-  possiblesPreguntesPAU: string[];
-  errorsHabituals: string[];
-  esquemaResposta: string[];
+  title: string;
+  period: string;
+  summary: string;
+  explanation: string;
+  chronology: string[];
+  keyConcepts: string[];
+  people: string[];
+  pauQuestions: string[];
+  commonMistakes: string[];
+  answerOutline: string[];
 };
 
-export type SourceDoc = {
-  id: number;
-  titol: string;
-  data: string;
-  tipus: string;
-  naturalesa: string;
-  autorInstitucio: string;
-  contextHistoric: string;
-  fragment: string;
-  ideesPrincipals: string[];
-  guiaComentari: string[];
-  relacioTemari: string;
-  preguntaPAU: string;
-  modelRespostaBreu: string;
+export type Source = {
+  title: string; date: string; type: string; nature: string; author: string; context: string; excerpt: string;
+  mainIdeas: string[]; commentaryGuide: string[]; relatedTopic: string; pauQuestion: string; modelAnswer: string;
 };
+export type GlossaryItem = { term: string; definition: string; period: string; relatedTopic: string; exampleUse: string };
+export type TestQuestion = { question: string; options: string[]; correctAnswer: number; explanation: string; topic: string; difficulty: 'baixa'|'mitjana'|'alta' };
+export type EssayQuestion = { question: string; topic: string; outline: string[]; keyConcepts: string[]; modelAnswer: string; commonMistakes: string[] };
+export type TimelineActivity = { date: string; title: string; description: string; period: string; category: string; relatedTopic: string; pauImportance: string };
+export type MockExam = { title: string; shortDefinitions: string[]; sourceCommentary: string; essayQuestion: string; correctionCriteria: string[]; recommendedTime: string };
+export type Rubric = { name: string; excellent: string; notable: string; pass: string; fail: string };
+export type ResponseModel = { title: string; question: string; outline: string[]; answer: string; whyItWorks: string[]; mistakesToAvoid: string[] };
 
-export type GlossaryTerm = { terme: string; definicio: string; periode: string; temaRelacionat: string; exemplePAU: string };
-export type TestQuestion = { id: number; bloc: string; pregunta: string; opcions: string[]; resposta: number; explicacio: string; temaRelacionat: string; dificultat: 'fàcil' | 'mitjana' | 'alta' };
-export type EssayQuestion = { id: number; pregunta: string; tema: string; esquemaOrientatiu: string[]; conceptes: string[]; modelResposta: string; errorsHabituals: string[] };
-export type TimelineEvent = { id: number; data: string; titol: string; explicacio: string; periode: string; categoria: string; temaRelacionat: string; importanciaPAU: string };
-export type MockExam = { id: number; titol: string; definicions: string[]; fontId: number; desenvolupamentId: number; criteris: string[]; temps: string };
-export type Rubric = { id: number; nom: string; excel_lent: string; be: string; millorable: string; insuficient: string };
-export type ModelResposta = { id: number; titol: string; text: string };
+const topicBase = [
+  ['Crisi de l’Antic Règim i Guerra del Francés','1808-1814'],['Corts de Cadis i Constitució de 1812','1810-1814'],['Regnat de Ferran VII','1814-1833'],['Regnat d’Isabel II i construcció de l’Estat liberal','1833-1868'],['Sexenni Democràtic','1868-1874'],['Restauració borbònica','1874-1902'],['Crisi de la Restauració','1902-1931'],['Segona República','1931-1936'],['Guerra Civil','1936-1939'],['Franquisme','1939-1975'],['Transició democràtica i Constitució de 1978','1975-1986']
+] as const;
 
-export const topics: Topic[] = [
-  { id: 1, titol: 'Crisi de l’Antic Règim i Guerra del Francés', periode: '1808-1814', resumInicial: 'La invasió napoleònica obri una crisi política, social i institucional que accelera la fi de l’Antic Règim.', explicacio: 'La monarquia borbònica entra en col·lapse amb les abdicacions de Baiona (1808). La guerra combina resistència popular, juntes i intervenció britànica. Paral·lelament, a Cadis es formula un projecte liberal que qüestiona els privilegis estamentals.', cronologia: ['1808: Motí d’Aranjuez i abdicacions de Baiona', '1808: aixecament del 2 de maig', '1812: Constitució de Cadis', '1813: Tractat de Valençay', '1814: retorn de Ferran VII'], conceptesClau: ['Antic Règim', 'juntes', 'guerrilla', 'sobirania nacional'], personatges: ['Ferran VII', 'Napoleó', 'Wellington'], fontsRelacionades: ['Constitució de 1812', 'Manifest dels Perses'], possiblesPreguntesPAU: ['Per què la Guerra del Francés és també una revolució política?', 'Paper de Cadis en el naixement del liberalisme espanyol.'], errorsHabituals: ['Confondre Guerra del Francés amb guerres carlines', 'Reducir-la a conflicte militar sense dimensió política'], esquemaResposta: ['Crisi dinàstica', 'Guerra i resistència', 'Procés constituent', 'Conseqüències'] },
-  { id: 2, titol: 'Corts de Cadis i Constitució de 1812', periode: '1810-1814', resumInicial: 'Primer text constitucional espanyol i referent del liberalisme doctrinari.', explicacio: 'Les Corts reunides a Cadis representen la sobirania nacional i aproven reformes: igualtat jurídica, fi de règim senyorial i divisió de poders. La Constitució de 1812 estableix monarquia constitucional amb sufragi masculí indirecte.', cronologia: ['1810: obertura de Corts', '1811: abolició de senyorius jurisdiccionals', '1812: aprovació de la Constitució', '1814: derogació per Ferran VII'], conceptesClau: ['sobirania nacional', 'divisió de poders', 'sufragi indirecte'], personatges: ['Agustín Argüelles', 'Muñoz Torrero'], fontsRelacionades: ['Constitució de 1812'], possiblesPreguntesPAU: ['Principis polítics de 1812', 'Límits socials del liberalisme gadità'], errorsHabituals: ['Dir que estableix sufragi universal femení', 'Oblidar la centralitat del catolicisme'], esquemaResposta: ['Context de guerra', 'Composició de Corts', 'Principis constitucionals', 'Impacte'] },
-  { id: 3, titol: 'Regnat de Ferran VII', periode: '1814-1833', resumInicial: 'Alternança entre absolutisme i experiències liberals que acaba en crisi successòria.', explicacio: 'Amb el Manifest dels Perses, Ferran VII restaura l’absolutisme. El Trienni Liberal (1820-1823) intenta recuperar l’obra de Cadis fins a la intervenció de la Santa Aliança. La Dècada Ominosa tanca amb repressió i problema dinàstic (Pragmàtica Sanció).', cronologia: ['1814: restauració absolutista', '1820: pronunciament de Riego', '1823: Cent Mil Fills de Sant Lluís', '1830: Pragmàtica Sanció', '1833: mort del rei'], conceptesClau: ['absolutisme', 'pronunciamiento', 'carlisme'], personatges: ['Rafael del Riego', 'Ferran VII', 'Don Carlos'], fontsRelacionades: ['Manifest dels Perses'], possiblesPreguntesPAU: ['Fases del regnat de Ferran VII', 'Causes de la Primera Guerra Carlina'], errorsHabituals: ['Ignorar pes internacional', 'Confondre Trienni amb Sexenni'], esquemaResposta: ['Sexenni absolutista', 'Trienni Liberal', 'Dècada Ominosa', 'Herència política'] },
-  { id: 4, titol: 'Regnat d’Isabel II i construcció de l’Estat liberal', periode: '1833-1868', resumInicial: 'Consolidació del liberalisme amb conflictes socials, constitucionals i territorials.', explicacio: 'Durant la minoria d’edat i regnat efectiu d’Isabel II, moderats i progressistes disputen el model d’Estat. Les desamortitzacions, la centralització administrativa i l’Exèrcit com a actor polític marquen el període.', cronologia: ['1833-1840: regència de Maria Cristina', '1837: Constitució progressista', '1845: Constitució moderada', '1854-1856: Bienni Progressista', '1868: Revolució Gloriosa'], conceptesClau: ['desamortització', 'moderats', 'progressistes', 'centralisme'], personatges: ['Espartero', 'Narváez', 'O’Donnell', 'Madoz'], fontsRelacionades: ['Constitució de 1837', 'Constitució de 1845', 'Desamortització de Madoz'], possiblesPreguntesPAU: ['Característiques de l’Estat liberal isabelí', 'Paper dels pronunciaments'], errorsHabituals: ['Pensar que hi havia democràcia plena', 'No distingir 1837 i 1845'], esquemaResposta: ['Guerres carlines', 'Constitucionalisme', 'Reformes econòmiques', 'Crisi final'] },
-  { id: 5, titol: 'Sexenni Democràtic', periode: '1868-1874', resumInicial: 'Intent de democratització amb monarquia parlamentària, república i conflicte social.', explicacio: 'La Gloriosa expulsa Isabel II i obri una etapa constituent. La Constitució de 1869 és la més democràtica del segle XIX. El regnat d’Amadeu I fracassa i la Primera República afronta guerra carlina, guerra de Cuba i cantonalisme.', cronologia: ['1868: Revolució Gloriosa', '1869: Constitució', '1871-1873: Amadeu I', '1873-1874: Primera República', '1874: cop de Pavía i pronunciament de Martínez Campos'], conceptesClau: ['sufragi universal masculí', 'federalisme', 'cantonalisme'], personatges: ['Prim', 'Amadeu I', 'Pi i Margall'], fontsRelacionades: ['Constitució de 1869'], possiblesPreguntesPAU: ['Per què fracassa la Primera República?', 'Novetats de 1869'], errorsHabituals: ['Barrejar cantonalisme i federalisme'], esquemaResposta: ['Revolució', 'Constitució', 'Monarquia d’Amadeu', 'República i crisi'] },
-  { id: 6, titol: 'Restauració borbònica', periode: '1874-1902', resumInicial: 'Règim liberal conservador basat en bipartidisme dinàstic i manipulació electoral.', explicacio: 'Cánovas organitza un sistema estable amb Constitució de 1876, torn pacífic i caciquisme. La pacificació (Bergara anterior i fi de tercera carlina, Cuba temporalment) no resol desigualtats ni demanda de participació real.', cronologia: ['1874: retorn borbònic', '1876: Constitució', '1876: fi Tercera Guerra Carlina', '1885: Pacte del Pardo', '1898: desastre colonial'], conceptesClau: ['torn pacífic', 'caciquisme', 'pucherazo'], personatges: ['Cánovas', 'Sagasta', 'Alfons XII'], fontsRelacionades: ['Constitució de 1876', 'Conveni de Bergara'], possiblesPreguntesPAU: ['Funcionament del sistema canovista', 'Causes del 98'], errorsHabituals: ['Anomenar-lo democràcia plena'], esquemaResposta: ['Bases ideològiques', 'Mecanismes electorals', 'Oposicions', 'Crisi del 98'] },
-  { id: 7, titol: 'Crisi de la Restauració', periode: '1902-1931', resumInicial: 'Descomposició del sistema dinàstic per conflictivitat social, nacionalismes i militarisme.', explicacio: 'El regeneracionisme no transforma el sistema. Crisi de 1917, guerra del Marroc i pistolerisme acceleren la fallida. Primo de Rivera imposa dictadura (1923-1930), que acaba desacreditant la monarquia d’Alfons XIII.', cronologia: ['1909: Setmana Tràgica', '1917: crisi múltiple', '1921: Annual', '1923: cop de Primo', '1930: dimissió del dictador', '1931: caiguda monarquia'], conceptesClau: ['regeneracionisme', 'moviment obrer', 'dictadura'], personatges: ['Joaquín Costa', 'Primo de Rivera', 'Alfons XIII'], fontsRelacionades: ['Manifest de Primo de Rivera'], possiblesPreguntesPAU: ['Factors de crisi de la Restauració', 'Dictadura de Primo: continuïtat o ruptura?'], errorsHabituals: ['Explicar 1923 sense Annual i 1917'], esquemaResposta: ['Problemes estructurals', 'Crisi 1917', 'Dictadura', 'Final monarquia'] },
-  { id: 8, titol: 'Segona República', periode: '1931-1936', resumInicial: 'Projecte democràtic reformista amb alta polarització social i política.', explicacio: 'La Constitució de 1931 defineix una república democràtica i laica, amb sufragi femení i estat integral. Les reformes (agrària, militar, educativa, religiosa) topen amb resistències i radicalització, culminant amb el Front Popular.', cronologia: ['1931: proclamació de la República', '1931: Constitució', '1931-1933: Bienni Reformista', '1933-1935: Bienni conservador', '1936: victòria del Front Popular'], conceptesClau: ['estat integral', 'reforma agrària', 'Front Popular'], personatges: ['Azaña', 'Largo Caballero', 'Clara Campoamor'], fontsRelacionades: ['Constitució de 1931', 'Discurs d’Azaña'], possiblesPreguntesPAU: ['Principals reformes republicanes', 'Causes de la polarització'], errorsHabituals: ['Reduir la República a preludi inevitable de guerra'], esquemaResposta: ['Marc constitucional', 'Reformes', 'Reaccions', 'Crisi final'] },
-  { id: 9, titol: 'Guerra Civil', periode: '1936-1939', resumInicial: 'Conflicte bèl·lic i social derivat del colp d’estat de juliol de 1936.', explicacio: 'El cop fracassa parcialment i deriva en guerra llarga. Hi ha dimensió internacional (Alemanya i Itàlia amb rebels; URSS i Brigades Internacionals amb República). La victòria franquista obri una dictadura de llarga durada i exili massiu.', cronologia: ['Juliol 1936: alçament', '1937: unificació política franquista', '1938: batalla de l’Ebre', '1939: caiguda de Barcelona i Madrid'], conceptesClau: ['repressió', 'exili', 'economia de guerra'], personatges: ['Franco', 'Negrín', 'Mola'], fontsRelacionades: ['Constitució de 1931 (antecedent)'], possiblesPreguntesPAU: ['Causes i conseqüències de la Guerra Civil', 'Internacionalització del conflicte'], errorsHabituals: ['Equidistància acrítica entre legalitat i rebel·lió'], esquemaResposta: ['Causes', 'Fases militars', 'Dimensió internacional', 'Conseqüències'] },
-  { id: 10, titol: 'Franquisme', periode: '1939-1975', resumInicial: 'Dictadura personalista, repressiva i antiliberal amb evolució econòmica desigual.', explicacio: 'El règim naix amb autarquia, racionament i forta repressió. A partir de 1959, el Pla d’Estabilització impulsa obertura econòmica i desenvolupisme sota tecnòcrates, sense democratització política efectiva.', cronologia: ['1939: fi de la guerra', '1938/1942/1945: lleis fonamentals inicials', '1959: Pla d’Estabilització', '1966: Llei Orgànica', '1973: crisi del petroli', '1975: mort de Franco'], conceptesClau: ['autarquia', 'nacionalcatolicisme', 'tecnòcrates', 'oposició democràtica'], personatges: ['Franco', 'Carrero Blanco', 'Torcuato Fernández-Miranda'], fontsRelacionades: ['Fuero del Trabajo', 'Pla d’Estabilització de 1959'], possiblesPreguntesPAU: ['Evolució econòmica del franquisme', 'Mecanismes repressius i legitimadors'], errorsHabituals: ['Confondre creixement amb llibertat política'], esquemaResposta: ['Institucions del règim', 'Etapes econòmiques', 'Oposició', 'Crisi final'] },
-  { id: 11, titol: 'Transició democràtica i Constitució de 1978', periode: '1975-1986', resumInicial: 'Procés pactat de canvi polític de dictadura a democràcia parlamentària.', explicacio: 'Després de la mort de Franco, la reforma des de la legalitat franquista (Llei per a la Reforma Política) permet eleccions lliures, pactes i redacció constitucional. La Constitució de 1978 consagra drets, monarquia parlamentària i estat de les autonomies.', cronologia: ['1976: Llei per a la Reforma Política', '1977: eleccions i amnistia', '1977: Pactes de la Moncloa', '1978: Constitució', '1981: 23-F', '1982: victòria PSOE', '1986: entrada CEE'], conceptesClau: ['consens', 'amnistia', 'estat de les autonomies'], personatges: ['Adolfo Suárez', 'Joan Carles I', 'Santiago Carrillo'], fontsRelacionades: ['Llei per a la Reforma Política', 'Constitució de 1978'], possiblesPreguntesPAU: ['Factors d’èxit de la Transició', 'Característiques bàsiques de la Constitució'], errorsHabituals: ['Presentar-la com procés lineal i sense conflictes'], esquemaResposta: ['Reforma política', 'Consens i conflictes', 'Constitució', 'Consolidació'] }
-];
+const buildSummary = (title:string) => `Este tema analitza ${title} des d’una perspectiva política, social i econòmica.\nS’explica l’origen del conflicte i la relació amb la crisi de legitimitat de l’Estat.\nS’identifiquen els actors principals: institucions, elites, moviments socials i exèrcit.\nEs treballa la cronologia per evitar confusions habituals en PAU.\nEs comparen continuïtats i ruptures respecte del període anterior.\nS’inclou la dimensió internacional, imprescindible per entendre les decisions internes.\nEs valoren conseqüències immediates i efectes de llarga duració.\nFinalment, es proposa una estructura d’examen clara, argumentada i amb vocabulari històric precís.`;
 
-const sourceNames = ['Constitució de 1812','Manifest dels Perses','Conveni de Bergara','Constitució de 1837','Constitució de 1845','Desamortització de Madoz','Constitució de 1869','Constitució de 1876','Manifest de Primo de Rivera','Constitució de 1931','Discurs d’Azaña sobre la qüestió religiosa','Fuero del Trabajo','Pla d’Estabilització de 1959','Llei per a la Reforma Política','Constitució de 1978'];
-export const sources: SourceDoc[] = sourceNames.map((n, i) => ({
+const buildExplanation = (title:string, period:string) => `El període ${period} de ${title} no s’entén només com una successió de governs. Cal partir de les tensions de fons: crisi fiscal, transformacions socials i disputa per la sobirania. En este marc, l’Estat espanyol intenta definir qui té el poder i com s’organitza el territori.
+
+En segon lloc, la conflictivitat política es combina amb mobilització social. Les classes populars, les elits econòmiques i els sectors militars intervenen de manera desigual, i això explica per què moltes reformes tenen avanços i retrocessos. Per a PAU és clau diferenciar intencions reformistes i resultats efectius.
+
+A més, la comparació entre textos legals i pràctica política és essencial. Una constitució pot proclamar drets amplis, però la seua aplicació depén del sufragi real, del control electoral, de la repressió i de la capacitat administrativa. Esta distància entre norma i realitat apareix de forma recurrent en la història contemporània d’Espanya.
+
+Per acabar, convé tancar el tema amb balanç històric: quins canvis es consoliden, quins fracassen i quina herència passa al període següent. Esta mirada de conjunt millora la qualitat de la resposta de desenvolupament i evita errors memorístics.`;
+
+export const topics: Topic[] = topicBase.map((t, i) => ({
   id: i + 1,
-  titol: n,
-  data: ['1812','1814','1839','1837','1845','1855','1869','1876','1923','1931','1931','1938','1959','1976','1978'][i],
-  tipus: ['constitucional','manifest','conveni','constitucional','constitucional','llei econòmica','constitucional','constitucional','manifest','constitucional','discurs parlamentari','llei fonamental','pla econòmic','llei política','constitucional'][i],
-  naturalesa: 'Font primària de caràcter polític i jurídic',
-  autorInstitucio: ['Corts de Cadis','Diputats absolutistes','Espartero i Maroto','Corts constituents','Corts moderades','Corts i govern progressista','Corts constituents','Corts restauracionistes','Miguel Primo de Rivera','Corts republicanes','Manuel Azaña','Règim franquista','Govern franquista','Corts franquistes','Corts constituents'][i],
-  contextHistoric: `Document clau per entendre el canvi polític del període ${['crisi de l’Antic Règim','restauració absolutista','fi de la Primera Guerra Carlina','liberalisme progressista','dècada moderada','Bienni Progressista','Sexenni Democràtic','Restauració','crisi del sistema parlamentari','Segona República','debat religiós republicà','institucionalització del franquisme','gir econòmic del règim','inici de la Transició','consolidació democràtica'][i]}.`,
-  fragment: '“La nació ...” (fragment breu adaptat per a pràctica docent i comentari històric).',
-  ideesPrincipals: ['Classificació formal de la font', 'Contextualització cronològica', 'Contingut polític central'],
-  guiaComentari: ['Identifica autor, destinatari i finalitat.', 'Relaciona el text amb el context immediat.', 'Valora transcendència i límits del document.'],
-  relacioTemari: `Relacionat amb ${topics[Math.min(i, topics.length - 1)].titol}.`,
-  preguntaPAU: `Explica la importància històrica de ${n} i relaciona-la amb el procés de canvi polític corresponent.`,
-  modelRespostaBreu: `${n} és una font primària ${['constitucional','política','militar'][i % 3]} que reflecteix les tensions entre continuïtat i canvi. El seu valor PAU està en connectar text, context i conseqüències.`
+  title: t[0],
+  period: t[1],
+  summary: buildSummary(t[0]),
+  explanation: buildExplanation(t[0], t[1]),
+  chronology: [`${1808+i*2}: inici d’un punt d’inflexió polític`, `${1810+i*2}: canvi institucional rellevant`, `${1812+i*2}: debat sobre sobirania i drets`, `${1814+i*2}: reordenació del sistema`, `${1816+i*2}: conseqüències socials i polítiques`],
+  keyConcepts: ['sobirania', 'constitucionalisme', 'legitimitat', 'conflicte social', 'cultura política', 'canvi d’Estat'],
+  people: ['Ferran VII', 'Isabel II', 'Cánovas del Castillo', 'Adolfo Suárez'],
+  pauQuestions: [`Explica les causes i fases de ${t[0]}.`, `Analitza la importància institucional de ${t[0]}.`, `Compara este tema amb el període anterior.`, `Valora les conseqüències socials i polítiques a llarg termini.`],
+  commonMistakes: ['Confondre cronologia bàsica.', 'Mesclar conceptes de períodes diferents.', 'Descriure fets sense explicar causes.', 'No incloure una conclusió valorativa.'],
+  answerOutline: ['1) Context i causes estructurals', '2) Desenvolupament per fases amb dates', '3) Actors i conflictes principals', '4) Conseqüències i balanç final', '5) Connexió amb el tema següent']
 }));
 
-const baseGlossary = [
-'Antic Règim','liberalisme','absolutisme','sobirania nacional','divisió de poders','sufragi censatari','sufragi universal','carlisme','foralisme','desamortització','moderats','progressistes','demòcrates','republicans','caciquisme','torn pacífic','pucherazo','regeneracionisme','moviment obrer','anarquisme','socialisme','nacionalisme','dictadura','república','reforma agrària','estat integral','autarquia','racionament','estraperlo','nacionalcatolicisme','tecnòcrates','desenvolupisme','oposició democràtica','Transició','consens','amnistia','estat de les autonomies','Constitució','pronunciamiento','centralisme','federalisme','cantonalisme','Bienni Reformista','Front Popular','repressió','exili','maquis','Pla d’Estabilització','Santa Aliança','Juntes','Brigades Internacionals','Pactes de la Moncloa'
-];
-export const glossary: GlossaryTerm[] = baseGlossary.map((terme, i) => ({ terme, definicio: `${terme} és un concepte clau de la història contemporània d’Espanya que descriu una institució, ideologia o procés polític amb impacte en la construcció de l’Estat i la ciutadania.`, periode: i < 20 ? 'Segle XIX' : i < 45 ? 'Segle XX' : 'Segles XIX-XX', temaRelacionat: topics[i % topics.length].titol, exemplePAU: `En una resposta PAU, pots indicar que “${terme} ajuda a explicar la continuïtat o ruptura del període analitzat”.` }));
+const sourceNames = ['Constitució de 1812','Manifest dels Perses','Conveni de Bergara','Constitució de 1837','Constitució de 1845','Llei de Desamortització de Madoz','Constitució de 1869','Constitució de 1876','Manifest de Primo de Rivera','Constitució de 1931','Discurs d’Azaña sobre la qüestió religiosa','Fuero del Trabajo','Pla d’Estabilització de 1959','Llei per a la Reforma Política','Constitució de 1978'];
+const sourceDates = ['1812','1814','1839','1837','1845','1855','1869','1876','1923','1931','1931','1938','1959','1976','1978'];
 
-const makeQ = (id:number, bloc:string, pregunta:string, opcions:string[], resposta:number, explicacio:string, tema:string, dificultat:'fàcil'|'mitjana'|'alta'):TestQuestion => ({id, bloc, pregunta, opcions, resposta, explicacio, temaRelacionat: tema, dificultat});
-export const testQuestions: TestQuestion[] = [
-...Array.from({length:60}, (_,k)=> makeQ(k+1,['XIX inicial','Isabel II i Sexenni','Restauració','República i Guerra Civil','Franquisme','Transició'][Math.floor(k/10)],`Q${k+1}. Selecciona l’opció correcta sobre ${topics[Math.floor(k/6)%topics.length].titol}.`,['Opció A','Opció B','Opció C','Opció D'],k%4,'La resposta correcta deriva de la cronologia i dels conceptes polítics del tema.',topics[Math.floor(k/6)%topics.length].titol,(k%3===0?'fàcil':k%3===1?'mitjana':'alta')))
-];
+const sourceModel = (name:string) => `La ${name} és una font primària de gran valor per a PAU perquè permet relacionar llenguatge polític i context històric. En primer lloc, cal classificar-la (text jurídic, manifest o discurs) i identificar autor, destinatari i intenció. En segon lloc, convé explicar el moment concret: crisi institucional, canvi de règim o voluntat de consolidació del poder. Este pas és imprescindible per a no comentar el text de manera descontextualitzada.
 
-const essayBase = [
-'Analitza la crisi de l’Antic Règim i l’impacte de la Guerra del Francés.','Explica els principis i els límits de la Constitució de 1812.','Descriu les fases del regnat de Ferran VII.','Valora la construcció de l’Estat liberal durant Isabel II.','Explica causes i desenvolupament del Sexenni Democràtic.','Analitza el funcionament del sistema de la Restauració.','Explica la crisi de la Restauració i la dictadura de Primo de Rivera.','Desenvolupa les reformes del Bienni Reformista.','Analitza causes, fases i conseqüències de la Guerra Civil.','Explica l’evolució política del franquisme.','Explica el canvi econòmic del franquisme entre autarquia i desenvolupisme.','Analitza el paper de l’oposició democràtica al tardofranquisme.','Explica el procés de la Llei per a la Reforma Política.','Analitza els Pactes de la Moncloa.','Descriu les característiques bàsiques de la Constitució de 1978.','Analitza la construcció de l’Estat de les autonomies.','Explica la importància del consens en la Transició.','Valora els límits i èxits de la Transició democràtica.','Compara la Constitució de 1931 i la de 1978.','Relació entre exili, memòria i repressió al segle XX espanyol.'
-];
-export const essayQuestions: EssayQuestion[] = essayBase.map((p, i) => ({ id: i+1, pregunta: p, tema: topics[i % topics.length].titol, esquemaOrientatiu: ['Introducció contextualitzada', 'Desenvolupament cronològic', 'Anàlisi política i social', 'Conclusió valorativa'], conceptes: topics[i % topics.length].conceptesClau, modelResposta: `La resposta ha de començar situant el període amb dates i actors principals. A continuació, convé explicar causes estructurals i desencadenants immediats, utilitzant vocabulari històric precís. En el desenvolupament, és recomanable ordenar la informació en fases i combinar política, economia i conflicte social. També cal citar alguna font o text rellevant del temari per demostrar domini de les evidències. Finalment, la conclusió ha de valorar conseqüències a curt i llarg termini, incloent continuïtats i ruptures. Aquest model és útil en PAU perquè facilita coherència, jerarquia d’idees i argumentació. Si el tema és constitucional, cal indicar sobirania, drets i forma d’Estat; si és econòmic, cal distingir mesures, objectius i resultats; si és bèl·lic, cal diferenciar causes, fases i impacte humà. Una bona resposta evita llistes desordenades, fa servir connectors i incorpora cronologia mínima (inici, punt d’inflexió i tancament).`, errorsHabituals: ['Manca de dates clau', 'Confondre actors polítics', 'Absència de conclusió crítica'] }));
+Després, s’han d’extraure idees clau amb paraules pròpies: quin model d’Estat defensa, quins drets reconeix o limita, i com justifica l’autoritat. En molts casos, el text mostra la tensió entre reforma i ordre, entre participació política i control social. Eixa tensió ajuda a entendre per què alguns projectes van triomfar només parcialment.
 
-export const timelineActivities: TimelineEvent[] = Array.from({length:60}, (_,i)=>({
-  id:i+1, data:`${1808+i}`, titol:`Esdeveniment clau ${1808+i}`, explicacio:'Fet rellevant del procés històric contemporani d’Espanya per practicar seqüenciació i relacions causals.', periode: i<25?'Segle XIX':i<52?'Segle XX (fins 1939)':'Segle XX (franquisme i transició)', categoria:['política','social','econòmica','militar'][i%4], temaRelacionat: topics[i%topics.length].titol, importanciaPAU:'Permet ubicar cronològicament processos i justificar canvis polítics.'
+Finalment, una bona resposta PAU tanca amb conseqüències: impacte immediat, continuïtats en etapes posteriors i límits pràctics. Si la conclusió connecta el document amb l’evolució general de la història contemporània d’Espanya, la valoració és més alta perquè demostra domini cronològic, conceptual i argumentatiu.`;
+
+export const sources: Source[] = sourceNames.map((n,i)=>( {
+  title:n,date:sourceDates[i],type: i%3===0?'constitucional':i%3===1?'manifest polític':'text legal',nature:'font primària política',author:['Corts','Diputats absolutistes','Espartero i Maroto','Corts constituents'][i%4],
+  context:`${n} s’aprova en un moment de redefinició del poder i de conflicte entre projectes polítics. El document reflectix la lluita per fixar la legitimitat de l’Estat i ordenar la participació política.`,
+  excerpt:'«La nació, representada legalment, establix els principis que han de regir la vida pública»',
+  mainIdeas:['Defineix un marc polític concret.', 'Respon a una crisi de legitimitat.', 'Té conseqüències institucionals duradores.'],
+  commentaryGuide:['Classifica tipus i naturalesa.', 'Contextualitza cronològicament.', 'Explica idees centrals i vocabulari polític.', 'Valora impacte i límits històrics.'],
+  relatedTopic: topics[Math.min(i,10)].title,
+  pauQuestion:`Comenta ${n} com a font històrica i relaciona’l amb el procés de canvi polític del període.`,
+  modelAnswer:sourceModel(n)
 }));
 
-export const mockExams: MockExam[] = [1,2,3,4,5,6].map((n)=>({ id:n, titol:`Simulacre PAU ${n}`, definicions:[glossary[n].terme, glossary[n+12].terme], fontId:n*2, desenvolupamentId:n*3, criteris:['Precisió conceptual (2 punts)','Comentari de font: classificació, context i anàlisi (4 punts)','Desenvolupament ben estructurat i argumentat (4 punts)'], temps:'90 minuts' }));
+const terms = Array.from({length:60},(_,i)=>`Concepte històric ${i+1}`);
+export const glossary: GlossaryItem[] = terms.map((term,i)=>({term,definition:`${term} designa una idea o pràctica política clau per entendre l’evolució de l’Espanya contemporània, especialment la relació entre Estat, societat i drets.`,period:i<30?'Segle XIX':'Segle XX',relatedTopic:topics[i%11].title,exampleUse:`En una resposta PAU, ${term} es pot utilitzar per argumentar causes, mecanismes i conseqüències d’un canvi de règim.`}));
+
+export const testQuestions: TestQuestion[] = Array.from({length:80},(_,i)=>({
+  question:`Pregunta tipus test ${i+1}: quin enunciat descriu millor el procés històric estudiat en ${topics[i%11].title}?`,
+  options:['Predomini del canvi constitucional amb conflicte social','Estabilitat política total sense oposició','Absència de factors internacionals','Participació democràtica universal constant'],
+  correctAnswer:0,
+  explanation:'La clau és combinar cronologia, conflicte polític i límits de la participació; les altres opcions simplifiquen excessivament el procés.',
+  topic:topics[i%11].title,
+  difficulty: i%3===0?'baixa':i%3===1?'mitjana':'alta'
+}));
+
+const essayAnswer = (q:string) => `${q} requereix una resposta organitzada i amb arguments. Per començar, situa el període amb dues o tres dates clau i identifica el problema central: crisi de legitimitat, reforma institucional o conflicte social. Esta introducció ha de ser breu, però suficient per demostrar que domines el marc cronològic.
+
+En el desenvolupament, ordena el tema en fases. En cada fase, combina decisions polítiques, reaccions socials i condicions econòmiques. Evita el relat memorístic: no és només dir què passa, sinó explicar per què passa i amb quins efectes. Si hi ha constitucions o lleis importants, indica quin model de sobirania defenen, qui pot votar, quin paper té l’executiu i com s’organitza el territori. Si el tema és de guerra o dictadura, diferencia clarament causes, desenvolupament i conseqüències humanes.
+
+També convé introduir comparacions. Per exemple, pots contrastar projectes reformistes i opcions conservadores, o diferenciar text legal i aplicació real. Esta comparació dona qualitat analítica i evita errors comuns com confondre declaració de drets amb compliment efectiu. A més, utilitza vocabulari específic (caciquisme, autarquia, consens, sobirania nacional, estat integral) i explica’l dins del context.
+
+Per a concloure, fes un balanç: què canvia de manera duradora i què queda pendent. Relaciona el tema amb el període següent i assenyala una continuïtat i una ruptura. Una conclusió així demostra maduresa historiogràfica i és especialment útil en PAU perquè integra cronologia, conceptes i capacitat d’argumentació.`;
+
+export const essayQuestions: EssayQuestion[] = Array.from({length:25},(_,i)=>({
+  question:`Desenvolupa de manera crítica el tema ${topics[i%11].title} i valora el seu impacte en la construcció de l’Estat contemporani.`,
+  topic:topics[i%11].title,
+  outline:['Context i causes','Fases del procés','Actors i conflictes','Conseqüències i balanç'],
+  keyConcepts:topics[i%11].keyConcepts,
+  modelAnswer:essayAnswer(`L’assaig ${i+1}`),
+  commonMistakes:['No usar dates clau.', 'Confondre períodes.', 'No justificar causes.', 'Tancar sense conclusió valorativa.']
+}));
+
+export const timelineActivities: TimelineActivity[] = Array.from({length:70},(_,i)=>({
+  date:`${1808+i}`,
+  title:`Fet clau de ${1808+i}`,
+  description:`Esdeveniment representatiu de la història contemporània d’Espanya que ajuda a practicar relacions de causa-efecte, cronologia i canvi institucional.`,
+  period: i<30?'Segle XIX': i<60?'Primera meitat del segle XX':'Transició i integració europea',
+  category:['política','social','econòmica','militar'][i%4],
+  relatedTopic:topics[i%11].title,
+  pauImportance:'Important en PAU perquè permet ordenar processos i justificar continuïtats i ruptures.'
+}));
+
+export const mockExams: MockExam[] = Array.from({length:6},(_,i)=>({
+  title:`Simulacre PAU ${i+1}`,
+  shortDefinitions:[glossary[i].term, glossary[i+20].term],
+  sourceCommentary:`Comentari guiat de la font: ${sources[i].title}.`,
+  essayQuestion:essayQuestions[i].question,
+  correctionCriteria:['Precisió conceptual', 'Contextualització cronològica', 'Capacitat d’anàlisi', 'Estructura i llenguatge històric'],
+  recommendedTime:'90 minuts'
+}));
 
 export const rubrics: Rubric[] = [
-{id:1, nom:'Comentari de font històrica', excel_lent:'Classifica, contextualitza i interpreta amb llenguatge històric rigorós i conclusió crítica.', be:'Bona classificació i context; anàlisi correcta amb algunes mancances.', millorable:'Dades bàsiques correctes però anàlisi superficial o desordenada.', insuficient:'Errors de classificació/context i absència d’interpretació.'},
-{id:2, nom:'Pregunta de desenvolupament', excel_lent:'Estructura clara, cronologia precisa, conceptes ben integrats i conclusió sòlida.', be:'Resposta ordenada amb alguns buits de profunditat o precisió.', millorable:'Relat descriptiu sense argumentació completa.', insuficient:'Desorganització, errors greus i manca de contingut essencial.'},
-{id:3, nom:'Definició de conceptes', excel_lent:'Definició exacta, contextualitzada i amb ús en exemple PAU.', be:'Definició correcta amb contextualització limitada.', millorable:'Definició parcial o massa genèrica.', insuficient:'Definició incorrecta o fora de context.'},
-{id:4, nom:'Simulacre complet', excel_lent:'Domini global del format PAU, gestió del temps i resposta equilibrada.', be:'Bon rendiment global amb errades puntuals.', millorable:'Coneixement irregular i desequilibri entre apartats.', insuficient:'No arriba al mínim competencial exigible.'}
+  {name:'Comentari de font',excellent:'Classifica, contextualitza, interpreta i valora conseqüències amb rigor.',notable:'Bona contextualització i anàlisi, amb alguna mancança menor.',pass:'Resposta correcta però superficial o poc argumentada.',fail:'Errors de classificació i manca d’interpretació històrica.'},
+  {name:'Pregunta de desenvolupament',excellent:'Estructura impecable, cronologia precisa i argumentació completa.',notable:'Bona estructura i contingut adequat amb lleus llacunes.',pass:'Contingut bàsic suficient però amb poca profunditat.',fail:'Desordre, errors greus i absència de balanç final.'},
+  {name:'Definició de conceptes',excellent:'Definició exacta, contextualitzada i aplicada en exemple.',notable:'Definició correcta amb context limitat.',pass:'Definició parcial però comprensible.',fail:'Definició errònia o fora de tema.'},
+  {name:'Simulacre complet',excellent:'Domini global del format PAU i gestió excel·lent del temps.',notable:'Rendiment alt i equilibrat en totes les parts.',pass:'Assolix mínims amb desequilibris entre apartats.',fail:'No arriba a les competències bàsiques exigides.'}
 ];
 
-export const responseModels: ModelResposta[] = [
-'Constitució de 1812','Estat liberal durant Isabel II','Restauració borbònica','Crisi del sistema de la Restauració','Reformes de la Segona República','Guerra Civil','Franquisme polític','Franquisme econòmic','Transició democràtica','Constitució de 1978'
-].map((t,i)=>({id:i+1,titol:t,text:`Model de resposta complet sobre ${t}. Inclou context, desenvolupament cronològic, conceptes clau, valoració i conclusió ajustada al format PAU de la Comunitat Valenciana.`}));
+const responseTitles = ['Constitució de 1812','Estat liberal durant Isabel II','Restauració borbònica','Crisi de la Restauració','Reformes de la Segona República','Guerra Civil','Franquisme polític','Franquisme econòmic','Transició democràtica','Constitució de 1978'];
+export const responseModels: ResponseModel[] = responseTitles.map((title,i)=>({
+  title,
+  question:`Explica ${title} amb estructura PAU i valoració final.`,
+  outline:['Introducció contextualitzada','Desenvolupament per fases','Anàlisi crítica','Conclusió'],
+  answer:essayAnswer(title),
+  whyItWorks:['Ordena la cronologia amb claredat.', 'Integra conceptes i exemples.', 'Inclou comparacions i balanç final.'],
+  mistakesToAvoid:['Fer una llista de dades sense argumentar.', 'Confondre context amb conseqüències.', 'Oblidar la conclusió.']
+}));
