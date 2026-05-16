@@ -130,6 +130,9 @@ La Pragmàtica Sanció (1830) permeté heretar a Isabel, filla de Ferran VII, en
 ];
 
 export const glossary: GlossaryItem[] = [
+  { term: "Abdicacions de Baiona", definition: "Cessió de la corona espanyola per part de Carles IV i Ferran VII a Napoleó Bonaparte que en cedeix els drets al seu germà Josep I.", period: "1808", relatedTopic: "Crisi de l’Antic Règim i Guerra del Francés", exampleUse: "Les abdicacions de Baiona precipiten la Guerra del Francés." },
+  { term: "Afrancesat", definition: "Espanyols partidaris de les polítiques de Josep I Bonaparte durant la Guerra del Francés.", period: "1808-1814", relatedTopic: "Crisi de l’Antic Règim i Guerra del Francés", exampleUse: "Una part dels afrancesats acabà exiliada després de la derrota francesa." },
+  { term: "Africanista", definition: "Militar espanyol destinat a les guerres colonials del Marroc a inicis del segle XX.", period: "Segle XX", relatedTopic: "Crisi de la Restauració", exampleUse: "Els africanistes guanyaren pes polític en l’exèrcit." },
   { term: 'Sobirania nacional', definition: 'Principi segons el qual el poder polític emana de la nació i no del dret diví del monarca.', period: 'Primer liberalisme (1808-1837)', relatedTopic: 'Corts de Cadis i Constitució de 1812', exampleUse: 'En PAU pots explicar que la Constitució de 1812 trasllada la legitimitat política a la nació.' },
   { term: 'Antic Règim', definition: 'Sistema social i polític preliberal basat en monarquia absoluta, societat estamental i privilegis jurídics.', period: 'Fins a inicis del segle XIX', relatedTopic: 'Crisi de l’Antic Règim i Guerra del Francés', exampleUse: 'La invasió napoleònica accelera la crisi de l’Antic Règim a Espanya.' },
   { term: 'Pronunciament', definition: 'Intervenció militar en política per forçar un canvi de govern o de règim.', period: 'Segle XIX', relatedTopic: 'Regnat de Ferran VII', exampleUse: 'El pronunciament de Riego (1820) inicia el Trienni Liberal.' },
