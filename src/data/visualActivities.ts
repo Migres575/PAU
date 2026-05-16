@@ -7,7 +7,7 @@ export const visualActivities: VisualActivity[] = Array.from({ length: 20 }, (_,
   id: `va${i + 1}`,
   title: `Activitat visual ${i + 1}`,
   period: ['Guerra del Francés','Estat liberal','Sexenni','Restauració','Segona República','Guerra Civil','Franquisme','Transició'][i % 8],
-  imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4f/The_Third_of_May_1808.jpg',
+  imageUrl: ['/images/guerra-frances.svg','/images/isabel-ii.svg','/images/restauracio.svg','/images/segona-republica.svg','/images/guerra-civil.svg','/images/franquisme.svg','/images/transicio.svg','/images/cadis-1812.svg'][i % 8],
   sourceName: 'Wikimedia Commons',
   sourceUrl: 'https://commons.wikimedia.org/wiki/Main_Page',
   questions: [
