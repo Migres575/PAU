@@ -216,20 +216,20 @@ export const essayQuestions: EssayQuestion[] = topics.map((t) => ({ question: `D
 export const timelineActivities: TimelineActivity[] = topics.flatMap((t) => t.chronology.map((c) => ({ date: c.split(':')[0], title: t.title, description: c, period: t.period, category: 'política', relatedTopic: t.title, pauImportance: 'Data clau per ordenar una resposta de desenvolupament a PAU.' })));
 export const sources: Source[] = [];
 export const mockExams: MockExam[] = [{
-  title: 'Simulacre PAU resolt',
-  shortDefinitions: glossary.slice(0, 2).map(g => g.term),
-  sourceCommentary: 'Comentari guiat de la Constitució de 1931',
-  essayQuestion: 'Explica les reformes polítiques i socials del primer bienni de la Segona República (1931-1933).',
-  correctionCriteria: ['Precisió històrica', 'Cronologia', 'Anàlisi', 'Expressió escrita'],
+  title: 'Simulacre PAU Comunitat Valenciana 2026 (model oficial)',
+  shortDefinitions: ['sobirania nacional', 'desamortització', 'pronunciament'],
+  sourceCommentary: 'Comentari de font històrica seguint l’esquema PAU CV 2026: classificació, idees principals, contextualització i transcendència',
+  essayQuestion: 'Desenvolupament històric: explica les reformes del primer bienni de la Segona República (1931-1933), els seus límits i les seues conseqüències polítiques.',
+  correctionCriteria: ['Adequació al model PAU CV 2026', 'Precisió històrica i conceptual', 'Cronologia i contextualització', 'Capacitat d’anàlisi i síntesi', 'Correcció lingüística'],
   recommendedTime: '90 minuts',
   solvedExam: [
     {
-      prompt: 'Comentari de font: identifica idees principals de la Constitució de 1931 i contextualitza-la.',
-      answer: 'La font és primària, jurídica i política, redactada per les Corts constituents en 1931. Les idees centrals són la sobirania popular, la igualtat davant la llei, la no-confessionalitat de l’Estat i l’obertura a l’autonomia regional. S’aprova després de la caiguda de la monarquia d’Alfons XIII i dins un programa de democratització profunda. La seua novetat respecte de 1876 és clara: amplia drets civils i planteja un model més laic i social.'
+      prompt: 'Comentari de font (Constitució de 1931): classifica la font, extrau les idees principals, contextualitza-la i explica la seua transcendència històrica.',
+      answer: 'És una font primària, de naturalesa jurídica i política, elaborada per les Corts Constituents i promulgada el 9 de desembre de 1931. Les idees principals són: sobirania popular, ampliació de drets i llibertats, sufragi universal (inclòs el femení), Estat integral amb possibilitat d’autonomia, separació Església-Estat i orientació social de la política. Es contextualitza en la proclamació de la Segona República (14 d’abril de 1931), després de la crisi de la monarquia d’Alfons XIII. La transcendència és alta perquè suposa la constitució més democràtica de l’Espanya contemporània fins a eixe moment, encara que també intensifica l’oposició dels sectors conservadors i religiosos.'
     },
     {
-      prompt: 'Desenvolupament: reformes del primer bienni republicà.',
-      answer: 'Entre 1931 i 1933 els governs republicanosocialistes impulsaren reformes per modernitzar Espanya: reforma militar (Azaña), educativa (escola pública laica), laboral (jurats mixtos i millores obreres), religiosa (separació Església-Estat) i agrària (Llei de Reforma Agrària de 1932). Tot i l’ambició, l’aplicació fou lenta per manca de recursos, resistències de grans propietaris, oposició catòlica i conflictivitat social. Això polaritzà la vida política i facilità el gir conservador de 1933.'
+      prompt: 'Pregunta de desenvolupament: reformes del primer bienni republicà (1931-1933), límits i conseqüències.',
+      answer: 'Entre 1931 i 1933, els governs republicanosocialistes intentaren modernitzar l’Estat i democratitzar la societat. La reforma militar d’Azaña volia reduir l’excés d’oficials i garantir la subordinació de l’exèrcit al poder civil. La reforma educativa apostà per escola pública, laica i expansió de la xarxa escolar. En l’àmbit laboral, Largo Caballero impulsà jurats mixtos i normativa protectora del treballador. En matèria religiosa, es limità el poder institucional de l’Església i es defensà la laïcitat. La reforma agrària (llei de 1932) pretenia redistribuir terres i reduir el conflicte al camp. També s’obrí el camí autonòmic (Estatut de Catalunya de 1932). Els límits foren grans: escassetat de recursos, burocràcia lenta, resistència de terratinents, oposició de la dreta i conflictivitat social (com els fets de Casas Viejas, 1933). Les conseqüències foren polarització política, desgast del govern i victòria de les dretes en les eleccions de novembre de 1933.'
     }
   ]
 }];
