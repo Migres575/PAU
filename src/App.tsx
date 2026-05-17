@@ -36,6 +36,10 @@ export default function App() {
     { title: 'Esquema comparatiu', className: 'list-[upper-roman]' },
   ] as const;
 
+
+  const unit1TopicIds = [1, 2, 3];
+  const unit1Topics = topics.filter((topic) => unit1TopicIds.includes(topic.id));
+
   const quickLinks: Array<{ title: string; target: Menu }> = [
     { title: 'Temari', target: 'temari' },
     { title: 'Cronologia', target: 'cronologia' },
@@ -78,9 +82,10 @@ export default function App() {
           ))}
         </div>
         <div className="grid md:grid-cols-2 gap-4"><ProgressCard progress={progress} /><SectionCard title="Repàs ràpid"><p>Continua estudiant des dels test, les fonts i els simulacres amb seguiment del progrés.</p></SectionCard></div>
-        <SectionCard title="Navegació per temes (separats)">
+        <SectionCard title="Unitat 1 · Navegació independent per temes PAU">
+          <p className="mb-3 text-sm text-slate-700">Treballa la Unitat 1 per blocs separats (crisi inicial, revolució gaditana i regnat de Ferran VII) amb enfocament específic de 2n de Batxillerat.</p>
           <div className="grid md:grid-cols-2 gap-3">
-            {topics.map((topic) => (
+            {unit1Topics.map((topic) => (
               <button
                 key={topic.id}
                 type="button"
