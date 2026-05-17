@@ -20,7 +20,18 @@ export type GlossaryItem = { term: string; definition: string; period: string; r
 export type TestQuestion = { question: string; options: string[]; correctAnswer: number; explanation: string; topic: string; difficulty: 'baixa'|'mitjana'|'alta' };
 export type EssayQuestion = { question: string; topic: string; outline: string[]; keyConcepts: string[]; modelAnswer: string; commonMistakes: string[] };
 export type TimelineActivity = { date: string; title: string; description: string; period: string; category: string; relatedTopic: string; pauImportance: string };
-export type MockExam = { title: string; shortDefinitions: string[]; sourceCommentary: string; essayQuestion: string; correctionCriteria: string[]; recommendedTime: string; solvedExam: { prompt: string; answer: string }[] };
+export type MockExam = {
+  title: string;
+  vocabularyPrompt: string;
+  vocabularyOptions: string[];
+  sourceCommentary: string;
+  sourceOptions: string[];
+  essayQuestion: string;
+  transversalQuestion: string;
+  correctionCriteria: string[];
+  recommendedTime: string;
+  solvedExam: { prompt: string; answer: string }[];
+};
 export type Rubric = { name: string; excellent: string; notable: string; pass: string; fail: string };
 export type ResponseModel = { title: string; question: string; outline: string[]; answer: string; whyItWorks: string[]; mistakesToAvoid: string[] };
 
@@ -217,27 +228,41 @@ export const timelineActivities: TimelineActivity[] = topics.flatMap((t) => t.ch
 export const sources: Source[] = [];
 export const mockExams: MockExam[] = [{
   title: 'Simulacre PAU Comunitat Valenciana 2026 (model oficial)',
-  shortDefinitions: ['sobirania nacional', 'desamortització', 'pronunciament'],
-  sourceCommentary: 'Comentari de font històrica seguint l’esquema PAU CV 2026: classificació, idees principals, contextualització i transcendència',
-  essayQuestion: 'Desenvolupament històric: explica les reformes del primer bienni de la Segona República (1931-1933), els seus límits i les seues conseqüències polítiques.',
+  vocabularyPrompt: 'Pregunta 1 (2 punts): tria dos conceptes entre quatre i defineix-los breument amb context històric.',
+  vocabularyOptions: ['sobirania nacional', 'desamortització', 'pronunciament', 'sufragi censatari'],
+  sourceCommentary: 'Pregunta 2 (2,5 punts): comenta una font entre dues opcions (tipologia, idees principals i context històric).',
+  sourceOptions: ['Discurs parlamentari sobre la Constitució de 1931 (font escrita)', 'Gràfic d’evolució electoral 1931-1936 (font gràfica)'],
+  essayQuestion: 'Pregunta 3 (3 punts): desenvolupa un tema entre dues opcions: (A) reformes del primer bienni de la Segona República (1931-1933), límits i conseqüències; (B) factors de la polarització política entre 1933 i 1936.',
+  transversalQuestion: 'Pregunta 4 (2,5 punts): relaciona canvis polítics, socials i culturals entre 1931 i 1978 a partir de continuïtats i ruptures.',
   correctionCriteria: ['Adequació al model PAU CV 2026', 'Precisió històrica i conceptual', 'Cronologia i contextualització', 'Capacitat d’anàlisi i síntesi', 'Correcció lingüística'],
   recommendedTime: '90 minuts',
   solvedExam: [
     {
-      prompt: 'Comentari de font (Constitució de 1931): classifica la font, extrau les idees principals, contextualitza-la i explica la seua transcendència històrica.',
+      prompt: 'Pregunta 1 · Vocabulari (2 punts): defineix dos conceptes entre quatre.',
+      answer: 'Exemple de resposta corregida: (1) Sobirania nacional: principi del liberalisme polític segons el qual el poder resideix en la nació i no en la monarquia absoluta; queda reflectit a la Constitució de Cadis (1812) i inspira el constitucionalisme contemporani. (2) Desamortització: procés de venda en subhasta de béns eclesiàstics i comunals impulsat al segle XIX (Mendizábal, Madoz) per sanejar la Hisenda i crear un mercat de la terra, amb impactes socials desiguals.'
+    },
+    {
+      prompt: 'Pregunta 2 · Comentari de font (2,5 punts): tria una font i fes tipologia, idees principals i context històric.',
       answer: 'És una font primària, de naturalesa jurídica i política, elaborada per les Corts Constituents i promulgada el 9 de desembre de 1931. Les idees principals són: sobirania popular, ampliació de drets i llibertats, sufragi universal (inclòs el femení), Estat integral amb possibilitat d’autonomia, separació Església-Estat i orientació social de la política. Es contextualitza en la proclamació de la Segona República (14 d’abril de 1931), després de la crisi de la monarquia d’Alfons XIII. La transcendència és alta perquè suposa la constitució més democràtica de l’Espanya contemporània fins a eixe moment, encara que també intensifica l’oposició dels sectors conservadors i religiosos.'
     },
     {
-      prompt: 'Pregunta de desenvolupament: reformes del primer bienni republicà (1931-1933), límits i conseqüències.',
+      prompt: 'Pregunta 3 · Desenvolupament de tema (3 punts): resol una de les dues opcions.',
       answer: 'Entre 1931 i 1933, els governs republicanosocialistes intentaren modernitzar l’Estat i democratitzar la societat. La reforma militar d’Azaña volia reduir l’excés d’oficials i garantir la subordinació de l’exèrcit al poder civil. La reforma educativa apostà per escola pública, laica i expansió de la xarxa escolar. En l’àmbit laboral, Largo Caballero impulsà jurats mixtos i normativa protectora del treballador. En matèria religiosa, es limità el poder institucional de l’Església i es defensà la laïcitat. La reforma agrària (llei de 1932) pretenia redistribuir terres i reduir el conflicte al camp. També s’obrí el camí autonòmic (Estatut de Catalunya de 1932). Els límits foren grans: escassetat de recursos, burocràcia lenta, resistència de terratinents, oposició de la dreta i conflictivitat social (com els fets de Casas Viejas, 1933). Les conseqüències foren polarització política, desgast del govern i victòria de les dretes en les eleccions de novembre de 1933.'
+    },
+    {
+      prompt: 'Pregunta 4 · Qüestió transversal (2,5 punts): relaciona processos històrics.',
+      answer: 'Resposta model: entre 1931 i 1978 hi ha una seqüència no lineal d’ampliació, ruptura i recuperació de drets. La Segona República amplia ciutadania i drets socials; la Guerra Civil i la dictadura franquista suposen regressió política i restricció de llibertats; la Transició connecta canvi institucional i pacte social per recuperar pluralisme i drets fonamentals. La relació transversal mostra com els canvis polítics condicionen educació, cultura política i participació ciutadana.'
     }
   ]
 },
 {
   title: 'Simulacre PAU Comunitat Valenciana 2026 (model oficial annexat)',
-  shortDefinitions: ['Constitució de 1812', 'torn pacífic', 'autarquia franquista'],
-  sourceCommentary: 'Comentari de font segons model oficial annexat: classificació, anàlisi del contingut i context històric comparat.',
-  essayQuestion: 'Exposició de tema: del liberalisme gadità a la construcció de l’Estat liberal (1808-1843) o transformacions econòmiques i socials (1959-1975).',
+  vocabularyPrompt: 'Pregunta 1 (2 punts): defineix dos conceptes a triar entre quatre.',
+  vocabularyOptions: ['Constitució de 1812', 'torn pacífic', 'autarquia franquista', 'Pactes de la Moncloa'],
+  sourceCommentary: 'Pregunta 2 (2,5 punts): comentari d’una font entre dues opcions, amb tipologia, idees principals i context.',
+  sourceOptions: ['Article de la Constitució de 1812 (font escrita)', 'Mapa de desequilibris regionals en la industrialització (font cartogràfica)'],
+  essayQuestion: 'Pregunta 3 (3 punts): desenvolupa un tema entre dos proposats: (A) del liberalisme gadità a la construcció de l’Estat liberal (1808-1843); (B) transformacions econòmiques i socials a Espanya (1959-1975).',
+  transversalQuestion: 'Pregunta 4 (2,5 punts): relaciona conflicte polític, construcció de l’Estat i ampliació de drets als segles XIX i XX.',
   correctionCriteria: ['Estructura exacta del model oficial (definicions, font, tema, qüestió transversal)', 'Precisió conceptual i cronològica', 'Anàlisi de causes i conseqüències', 'Relació amb context europeu', 'Correcció lingüística i claredat expositiva'],
   recommendedTime: '90 minuts',
   solvedExam: [
