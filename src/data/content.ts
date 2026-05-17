@@ -38,37 +38,32 @@ export type ResponseModel = { title: string; question: string; outline: string[]
 export const topics: Topic[] = [
   {
     id: 1,
-    title: 'Crisi de l’Antic Règim i Guerra del Francés',
-    period: '1808-1814',
-    summary: `La crisi de l’Antic Règim a Espanya esclata en un context de debilitat de la monarquia borbònica i d’expansió napoleònica a Europa.
-La invasió francesa de 1808 i les abdicacions de Baiona provocaren un buit de poder i una crisi de legitimitat.
-El poble, les juntes i part de l’exèrcit impulsaren una resistència armada molt desigual al territori.
-La guerra combinà fronts militars convencionals amb guerrilles locals que desgastaren les tropes franceses.
-Alhora, el conflicte tingué dimensió internacional per la intervenció britànica dirigida per Wellington.
-La guerra causà una forta destrucció econòmica, crisi agrària i retrocés demogràfic en moltes zones.
-Políticament, el conflicte obrí el debat entre absolutisme i liberalisme.
-Les Corts reunides a Cadis intentaren construir un nou marc polític en plena guerra.
-Això connecta la guerra amb l’origen del constitucionalisme espanyol contemporani.
-La derrota final de Napoleó permeté el retorn de Ferran VII en 1814.
-Tanmateix, la tornada del rei no significà estabilitat, sinó un nou cicle de conflicte polític.
-Per a PAU és clau distingir causes, desenvolupament bèl·lic i conseqüències institucionals.` ,
-    explanation: `La crisi de 1808 no fou un accident sobtat, sinó el resultat de la descomposició de l’Antic Règim espanyol. La monarquia de Carles IV patia desprestigi polític, dependència exterior i tensions internes, agreujades pel pes de Manuel Godoy i per la derrota naval de Trafalgar (1805), que afeblí el paper internacional d’Espanya.
+    title: 'Unitat 1: Guerra i revolució liberal',
+    period: '1788-1833',
+    summary: `Esta unitat analitza la transició entre l’Antic Règim i l’Estat liberal en Espanya entre 1788 i 1833.
+Comença amb el regnat de Carles IV i la crisi de la monarquia borbònica.
+Continua amb la Guerra del Francés i la revolució política iniciada a Cadis.
+Estudia després els canvis de Ferran VII: restauració absolutista, Trienni Liberal i Dècada Ominosa.
+Inclou la independència de les colònies americanes com a procés simultani i decisiu.
+El període acaba amb la crisi successòria que obri el conflicte carlí.
+Per a PAU és clau connectar guerra, revolució liberal i construcció de l’Estat contemporani.` ,
+    explanation: `1) El regnat de Carles IV (1788-1808): la monarquia entra en crisi per la por a la Revolució Francesa, la inestabilitat internacional i el desgast intern del govern de Godoy. La derrota de Trafalgar (1805) i la dependència de França afebliren l’Estat. El motí d’Aranjuez (març de 1808) provocà l’abdicació de Carles IV i demostrà la descomposició del sistema.
 
-Napoleó aprofità esta debilitat per intervenir en la Península. Amb el Tractat de Fontainebleau (1807), les tropes franceses entraren suposadament per atacar Portugal, però acabaren ocupant posicions estratègiques. Les abdicacions de Baiona (maig de 1808) i la imposició de Josep I desencadenaren la ruptura de l’obediència dinàstica tradicional.
+2) La Guerra del Francés i les Corts de Cadis (1808-1814): després de les abdicacions de Baiona, Josep I és imposat com a rei i esclata una guerra nacional i internacional. Les juntes, la guerrilla i l’ajuda britànica foren claus. En paral·lel, les Corts de Cadis aprovaren la Constitució de 1812, amb sobirania nacional, divisió de poders i inici del constitucionalisme espanyol.
 
-L’aixecament del 2 de maig de 1808 a Madrid simbolitza l’inici de la resistència. Ràpidament es formaren juntes locals i provincials que afirmaren governar en nom de Ferran VII. Esta sobirania de fet des de baix representà una novetat política important, perquè traslladava la legitimitat a la nació en absència del rei.
+3) Ferran VII i el Sexenni Absolutista (1814-1820): en tornar, Ferran VII anul·la l’obra de Cadis, restaura l’absolutisme i reprimeix el liberalisme. Malgrat això, la crisi d’Hisenda, el malestar militar i la pèrdua de legitimitat del règim prepararen nous pronunciaments.
 
-La guerra tingué diverses fases: èxits inicials espanyols (Bailén, 1808), contraofensiva francesa amb la presència directa de Napoleó, i etapa final de desgast (1812-1814) amb el suport britànic. Les guerrilles, encara que descoordinades, foren decisives per dificultar el control francès del territori.
+4) El Trienni Liberal (1820-1823): el pronunciament de Riego obliga el rei a jurar la Constitució de 1812. El govern liberal impulsa reformes administratives, fiscals i militars, però hi ha divisió interna entre moderats i exaltats, oposició absolutista i pressió internacional.
 
-El cost social i econòmic fou enorme: morts, fam, destrucció d’infraestructures i bloqueig comercial. A més, la guerra accentuà fractures ideològiques entre afrancesats, absolutistes i liberals. Este pluralisme polític explica per què el final del conflicte no portà una pau política duradora.
+5) La independència de les colònies americanes: entre 1810 i 1824, la major part de l’imperi continental americà es deslliga d’Espanya. Hi influïren les idees liberals, la crisi dinàstica de 1808 i els interessos de les elits criolles. La derrota d’Ayacucho (1824) simbolitza la fi de l’imperi continental i agreuja la crisi econòmica espanyola.
 
-La principal conseqüència estructural és que la guerra obrí el camí del liberalisme polític, articulat a Cadis, però també deixà una cultura de militarització i pronunciaments que marcaria el segle XIX espanyol. Per això este tema és clau per entendre la transició de l’Antic Règim a l’Estat liberal.`,
-    chronology: ['1807: Tractat de Fontainebleau entre Espanya i França.', '2 maig 1808: alçament de Madrid contra l’ocupació francesa.', 'juliol 1808: victòria espanyola a Bailén.', '1810: reunió de les Corts a Cadis.', '1812: ofensiva aliada i inici del retrocés francès.', '1813: Tractat de Valençay.', '1814: retirada francesa i retorn de Ferran VII.'],
-    keyConcepts: ['Antic Règim', 'abdicacions de Baiona', 'juntes', 'guerrilla', 'sobirania nacional', 'guerra d’independència'],
-    people: ['Carles IV', 'Manuel Godoy', 'Napoleó Bonaparte', 'Josep I Bonaparte', 'Arthur Wellesley (Wellington)', 'Ferran VII'],
-    pauQuestions: ['Explica les causes internes i externes de la Guerra del Francés.', 'Descriu les fases del conflicte i el paper de la guerrilla.', 'Analitza les conseqüències polítiques de la guerra sobre la crisi de l’Antic Règim.'],
-    commonMistakes: ['Confondre la Guerra del Francés amb les guerres carlines.', 'Oblidar la dimensió internacional britànica.', 'No relacionar guerra i naixement del liberalisme.'],
-    answerOutline: ['Context europeu i crisi borbònica', 'Invasió, Baiona i alçament de 1808', 'Fases militars i guerrilla', 'Impacte social i econòmic', 'Conseqüències polítiques i llegat']
+6) La Dècada Ominosa i la crisi successòria (1823-1833): la intervenció dels Cent Mil Fills de Sant Lluís restaura l’absolutisme. Hi ha repressió, però també intents de reforma limitada. La Pragmàtica Sanció (1830) obri el conflicte entre isabelins i carlins. A la mort de Ferran VII (1833) esclata la Primera Guerra Carlina.`,
+    chronology: ['1788: inici del regnat de Carles IV.', '1808: motí d’Aranjuez, abdicacions de Baiona i inici de la Guerra del Francés.', '1810-1812: Corts de Cadis i Constitució de 1812.', '1814: retorn de Ferran VII i inici del Sexenni Absolutista.', '1820-1823: Trienni Liberal.', '1824: derrota espanyola a Ayacucho.', '1823-1833: Dècada Ominosa.', '1830: Pragmàtica Sanció.', '1833: mort de Ferran VII i crisi successòria.'],
+    keyConcepts: ['Antic Règim', 'Guerra del Francés', 'Constitució de 1812', 'Sexenni Absolutista', 'Trienni Liberal', 'independència americana', 'Dècada Ominosa', 'carlisme'],
+    people: ['Carles IV', 'Manuel Godoy', 'Ferran VII', 'Rafael del Riego', 'Simón Bolívar', 'José de San Martín', 'Carles Maria Isidre'],
+    pauQuestions: ['Desenvolupa la Unitat 1 (1788-1833) perioditzant etapes i processos.', 'Relaciona Guerra del Francés, Corts de Cadis i inici del liberalisme.', 'Explica la relació entre crisi imperial americana i crisi de la monarquia espanyola.'],
+    commonMistakes: ['No diferenciar Sexenni Absolutista, Trienni Liberal i Dècada Ominosa.', 'Reduir la independència americana a una sola causa.', 'Oblidar la crisi successòria de 1830-1833.'],
+    answerOutline: ['Crisi de la monarquia amb Carles IV', 'Guerra del Francés i revolució gaditana', 'Restauració absolutista de 1814', 'Trienni Liberal i reacció europea', 'Emancipació americana i impacte', 'Dècada Ominosa i origen del conflicte carlí']
   },
   {
     id: 2,
